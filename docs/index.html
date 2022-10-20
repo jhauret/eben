@@ -22,6 +22,9 @@
     <!-- Custom styles for this template -->
     <link href="offcanvas.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="progres-bar.css">
+
+
     <!--    <link rel="icon" href="img/favicon.gif" type="image/gif">-->
 </head>
 
@@ -149,7 +152,7 @@
         <h2> Funny effect </h2>
         <hr>
         <p>
-            <center> In this example we trained a model in English and inferred it on French. We can notice a strong accent which makes the enhanced audio incomprehensible. 
+            <center> In this example we trained a model in English and inferred it on French. We can notice a strong accent which makes the enhanced audio incomprehensible.
             Objective metrics do not penalize this behavior and give similar scores to models trained in the same language as inference.  </center>
         </p>
         <div class="row justify-content-center">
@@ -192,7 +195,7 @@
      <div class="section">
         <h2>  Spectrograms per method: In-ear | Enhanced | Reference </h2>
         <hr>
-        
+
         <div class="row justify-content-center">
             <div class="col-sm-4">
                 <h5>HifiGAN v3</h5>
@@ -216,7 +219,7 @@
                 <h5>EBEN</h5>
                 <div class="allblur2"><img src="gif/small_eben.gif" class="media-left" style="width:100%"></div>
             </div>
-        
+
         </div>
          <!--
         <div class="embed-responsive embed-responsive-4by3">
@@ -347,6 +350,13 @@ align-items:center; height:min(500px,max(70vh,80vw))">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
+        <script src="player.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('.mediPlayer').mediaPlayer();
+            });
+        </script>
 
 </body>
 </html>
