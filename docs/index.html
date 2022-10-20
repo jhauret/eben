@@ -132,45 +132,36 @@
         <h2> Funny effect </h2>
         <hr>
         <p>
-            <center> In this example we trained a model in English and inferred it on French. We can notice a strong accent which makes the enhanced audio incomprehensible.
+            <center> In this example, we trained a model in English and inferred it on French. We can notice a strong accent which makes the enhanced audio incomprehensible.
             Objective metrics do not penalize this behavior and give similar scores to models trained in the same language as inference.  </center>
         </p>
         <div class="row justify-content-center">
-            <div class="col-sm-4">
-                <h5>In-ear</h5>
-                <audio
-                        controls
-                        src="audios/funny_corrupted.wav"
-                        class="media-left"
-                        style="width:100%">
-                    Your browser does not support the
-                    <code>audio</code> element.
-                </audio>
+
+          <div class="col-sm-2">
+            <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                <audio class="listen" preload="none" data-size="50" src="audios/funny_corrupted.wav" type="audio/wav"></audio>
             </div>
-            <div class="col-sm-4">
-                <h5>Enhanced</h5>
-                <audio
-                        controls
-                        src="audios/funny_enhanced.wav"
-                        class="media-left"
-                        style="width:100%">
-                    Your browser does not support the
-                    <code>audio</code> element.
-                </audio>
+              <h5 class="text-center">In-ear </h5>
+              <p class="text-center">(french)</p>
             </div>
-            <div class="col-sm-4">
-                <h5>Reference</h5>
-                <audio
-                        controls
-                        src="audios/funny_reference.wav"
-                        class="media-left"
-                        style="width:100%">
-                    Your browser does not support the
-                    <code>audio</code> element.
-                </audio>
+
+            <div class="col-sm-2">
+              <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                  <audio class="listen" preload="none" data-size="50" src="audios/funny_enhanced.wav" type="audio/wav"></audio>
+              </div>
+                <h5 class="text-center">Enhanced </h5>
+                <p class="text-center">(by a model trained with english content)</p>
+            </div>
+            <div class="col-sm-2">
+                <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                    <audio class="listen" preload="none" data-size="50" src="audios/funny_reference.wav" type="audio/wav"></audio>
+                </div>
+                <h5 class="text-center">Reference</h5>
+                <p class="text-center">(french)</p>
             </div>
         </div>
     </div>
+
 
      <div class="section">
         <h2>  Spectrograms per method: In-ear | Enhanced | Reference </h2>
