@@ -58,112 +58,113 @@
         </p>
     </div>
 
-      <div class="section">
-        <h2> Listen to in-ear, reference and enhanced audios </h2>
-        <hr>
-        <div class="row justify-content-center">
+    <div class="section">
+      <h2> Listen to in-ear, reference and enhanced audios </h2>
+      <hr>
+      <div class="row justify-content-center">
 
-                    <div class="col-sm-2">
+                  <div class="col-sm-2">
 
-                      <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                          <audio class="listen" preload="none" data-size="50" src="audios/008_inear.wav" type="audio/wav"></audio>
-                      </div>
-                      <h5 class="text-center">In-ear</h5>
-                      <p class="text-center">(simulated)</p>
+                    <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                        <audio class="listen" preload="none" data-size="50" src="audios/008_inear.wav" type="audio/wav"></audio>
                     </div>
-
-                    <div class="col-sm-2">
-                        <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                            <audio class="listen" preload="none" data-size="50" src="audios/008_eben.wav" type="audio/wav"></audio>
-                        </div>
-                        <h5 class="text-center" style="color: #2761ff;">EBEN</h5>
-                        <p class="text-center">(ours)</p>
-
-
-                </div>
-
-
-                    <div class="col-sm-2">
-                      <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                          <audio class="listen" preload="none" data-size="50" src="audios/008_ref.wav" type="audio/wav"></audio>
-                      </div>
-                      <h5 class="text-center">Reference</h5>
-
-                    </div>
-
-
-              </div>
-
-
-                <div class="row justify-content-center">
+                    <h5 class="text-center">In-ear (simulated)</h5>
+                    <p class="text-center">(simulated)</p>
+                  </div>
 
                   <div class="col-sm-2">
                       <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                          <audio class="listen" preload="none" data-size="50" src="audios/008_hifigan.wav" type="audio/wav"></audio>
+                          <audio class="listen" preload="none" data-size="50" src="audios/008_eben.wav" type="audio/wav"></audio>
                       </div>
-                      <h5 class="text-center">HifiGAN v3</h5>
+                      <h5 class="text-center" style="color: #2761ff;">EBEN (ours)</h5>
 
-                  </div>
+              </div>
+
 
                   <div class="col-sm-2">
                     <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                        <audio class="listen" preload="none" data-size="50" src="audios/008_kuleshov.wav" type="audio/wav"></audio>
+                        <audio class="listen" preload="none" data-size="50" src="audios/008_ref.wav" type="audio/wav"></audio>
                     </div>
-                      <h5 class="text-center">Kuleshov</h5>
+                    <h5 class="text-center">Reference</h5>
+
                   </div>
 
 
-                    <div class="col-sm-2">
-                      <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                          <audio class="listen" preload="none" data-size="50" src="audios/008_seanet.wav" type="audio/wav"></audio>
-                      </div>
-                        <h5 class="text-center">Seanet</h5>
+            </div>
+
+
+              <div class="row justify-content-center">
+
+                <div class="col-sm-2">
+                    <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                        <audio class="listen" preload="none" data-size="50" src="audios/008_hifigan.wav" type="audio/wav"></audio>
                     </div>
+                    <h5 class="text-center">HifiGAN v3</h5>
+
+                </div>
+
+                <div class="col-sm-2">
+                  <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                      <audio class="listen" preload="none" data-size="50" src="audios/008_kuleshov.wav" type="audio/wav"></audio>
+                  </div>
+                    <h5 class="text-center">Kuleshov</h5>
+                </div>
 
 
-                    <div class="col-sm-2">
-                      <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                          <audio class="listen" preload="none" data-size="50" src="audios/008_streaming.wav" type="audio/wav"></audio>
-                      </div>
-                        <h5 class="text-center">Streaming Seanet</h5>
-
+                  <div class="col-sm-2">
+                    <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                        <audio class="listen" preload="none" data-size="50" src="audios/008_seanet.wav" type="audio/wav"></audio>
                     </div>
+                      <h5 class="text-center">Seanet</h5>
+                  </div>
+
+
+                  <div class="col-sm-2">
+                    <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                        <audio class="listen" preload="none" data-size="50" src="audios/008_streaming.wav" type="audio/wav"></audio>
+                    </div>
+                      <h5 class="text-center">Streaming Seanet</h5>
+
+                  </div>
+                </div>
+              </div>
 
 
 
-     <div class="section">
-        <h2> Funny effect </h2>
-        <hr>
-        <p>
-            <center> In this example, we trained a model in English and inferred it on French. We can notice a strong accent which makes the enhanced audio incomprehensible.
-            Objective metrics do not penalize this behavior and give similar scores to models trained in the same language as inference.  </center>
-        </p>
-        <div class="row justify-content-center">
+
+   <div class="section">
+      <h2> Funny effect </h2>
+      <hr>
+      <p>
+          <center> In this example, we trained a model in English and inferred it on French. We can notice a strong accent which makes the enhanced audio incomprehensible.
+          Objective metrics do not penalize this behavior and give similar scores to models trained in the same language as inference.  </center>
+      </p>
+      <div class="row justify-content-center">
+
+        <div class="col-sm-2">
+          <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+              <audio class="listen" preload="none" data-size="50" src="audios/funny_corrupted.wav" type="audio/wav"></audio>
+          </div>
+            <h5 class="text-center">In-ear </h5>
+            <p class="text-center">(french)</p>
+          </div>
 
           <div class="col-sm-2">
             <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                <audio class="listen" preload="none" data-size="50" src="audios/funny_corrupted.wav" type="audio/wav"></audio>
+                <audio class="listen" preload="none" data-size="50" src="audios/funny_enhanced.wav" type="audio/wav"></audio>
             </div>
-              <h5 class="text-center">In-ear </h5>
-              <p class="text-center">(french)</p>
-            </div>
-
-            <div class="col-sm-2">
+              <h5 class="text-center">Enhanced </h5>
+              <p class="text-center">(by a model trained with english content)</p>
+          </div>
+          <div class="col-sm-2">
               <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                  <audio class="listen" preload="none" data-size="50" src="audios/funny_enhanced.wav" type="audio/wav"></audio>
+                  <audio class="listen" preload="none" data-size="50" src="audios/funny_reference.wav" type="audio/wav"></audio>
               </div>
-                <h5 class="text-center">Enhanced </h5>
-                <p class="text-center">(by a model trained with english content)</p>
-            </div>
-            <div class="col-sm-2">
-                <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                    <audio class="listen" preload="none" data-size="50" src="audios/funny_reference.wav" type="audio/wav"></audio>
-                </div>
-                <h5 class="text-center">Reference</h5>
-                <p class="text-center">(french)</p>
-            </div>
-        </div>
-    </div>
+              <h5 class="text-center">Reference</h5>
+              <p class="text-center">(french)</p>
+          </div>
+      </div>
+  </div>
 
 
      <div class="section">
