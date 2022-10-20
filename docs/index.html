@@ -23,12 +23,15 @@
     <link href="offcanvas.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="progres-bar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="style_zoom.css">
 
 
     <!--    <link rel="icon" href="img/favicon.gif" type="image/gif">-->
 </head>
 
 <body>
+
 <div class="jumbotron jumbotron-fluid">
     <div class="container"></div>
     <h2>EBEN: Extreme Bandwidth Extension Network <br> applied to speech signals captured with noise-resilient microphones</h2>
@@ -56,7 +59,11 @@
         <p>
             We present Extreme Bandwidth Extension Network (EBEN), a generative adversarial network (GAN) that enhances audio measured with noise-resilient microphones. This type of capture equipment suppresses ambient noise at the expense of speech bandwidth, thereby requiring signal enhancement techniques to recover the wideband speech signal. EBEN leverages a multiband decomposition of the raw captured speech to decrease the data time-domain dimensions, and give better control over the full-band signal. This multiband representation is fed to a U-Net-like model, which adopts a combination of feature and adversarial losses to recover an enhanced audio signal. We also benefit from this original representation in the proposed discriminator architecture. Our approach can achieve state-of-the-art results with a lightweight generator and real-time compatible operation.
         </p>
-    </div>
+
+        <div class="img-magnifier-container">
+          <img id="myimage" src="img/spec_eben.png" width="600" height="400" alt="Girl">
+        </div>
+
 
     <div class="section">
       <h2> Listen to in-ear, reference and enhanced audios </h2>
