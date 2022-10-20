@@ -58,9 +58,6 @@
       <div class="section">
         <h2> Listen to in-ear, reference and enhanced audios </h2>
         <hr>
-        <p>
-            <center> Listen to different methods. </center>
-        </p>
         <div class="row justify-content-center">
             <div class="col-sm-4">
                 <h5>Simulated In-ear</h5>
@@ -147,8 +144,53 @@
     </div>
     </div>
 
+
      <div class="section">
-        <h2>  Inspect corresponding spectrograms by yourself ! </h2>
+        <h2> Funny effect </h2>
+        <hr>
+        <p>
+            <center> In this example we trained a model in English and inferred it on French. We can notice a strong accent which makes the enhanced audio incomprehensible. 
+            Objective metrics do not penalize this behavior and give similar scores to models trained in the same language as inference.  </center>
+        </p>
+        <div class="row justify-content-center">
+            <div class="col-sm-4">
+                <h5>In-ear</h5>
+                <audio
+                        controls
+                        src="audios/funny_corrupted.wav"
+                        class="media-left"
+                        style="width:100%">
+                    Your browser does not support the
+                    <code>audio</code> element.
+                </audio>
+            </div>
+            <div class="col-sm-4">
+                <h5>Enhanced</h5>
+                <audio
+                        controls
+                        src="audios/funny_enhanced.wav"
+                        class="media-left"
+                        style="width:100%">
+                    Your browser does not support the
+                    <code>audio</code> element.
+                </audio>
+            </div>
+            <div class="col-sm-4">
+                <h5>Reference</h5>
+                <audio
+                        controls
+                        src="audios/funny_reference.wav"
+                        class="media-left"
+                        style="width:100%">
+                    Your browser does not support the
+                    <code>audio</code> element.
+                </audio>
+            </div>
+        </div>
+    </div>
+
+     <div class="section">
+        <h2>  Spectrograms per method: In-ear | Enhanced | Reference </h2>
         <hr>
         
         <div class="row justify-content-center">
