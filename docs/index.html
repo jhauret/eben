@@ -62,90 +62,70 @@
         <h2> Listen to in-ear, reference and enhanced audios </h2>
         <hr>
         <div class="row justify-content-center">
-            <div class="col-sm-4">
-                <h5>Simulated In-ear</h5>
-                <audio
-                        controls
-                        src="audios/008_inear.wav"
-                        class="media-left"
-                        style="width:100%">
-                    Your browser does not support the
-                    <code>audio</code> element.
-                </audio>
-            </div>
-            <div class="col-sm-4">
-                <h5>Reference</h5>
-                <audio
-                        controls
-                        src="audios/008_ref.wav"
-                        class="media-left"
-                        style="width:100%">
-                    Your browser does not support the
-                    <code>audio</code> element.
-                </audio>
-            </div>
 
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-sm-4">
-                <h5>HifiGAN v3</h5>
-                <audio
-                        controls
-                        src="audios/008_hifigan.wav"
-                        class="media-left"
-                        style="width:100%">
-                    Your browser does not support the
-                    <code>audio</code> element.
-                </audio>
-            </div>
-            <div class="col-sm-4">
-                <h5>Kuleshov</h5>
-                <audio
-                        controls
-                        src="audios/008_kuleshov.wav"
-                        class="media-left"
-                        style="width:100%">
-                    Your browser does not support the
-                    <code>audio</code> element.
-                </audio>
-            </div>
-            <div class="col-sm-4">
-                <h5>Seanet</h5>
-                <audio
-                        controls
-                        src="audios/008_seanet.wav"
-                        class="media-left"
-                        style="width:100%">
-                    Your browser does not support the
-                    <code>audio</code> element.
-                </audio>
-            </div>
+                    <div class="col-sm-2">
 
-            <div class="col-sm-4">
-                <h5>Streaming Seanet</h5>
-                <audio
-                        controls
-                        src="audios/008_streaming.wav"
-                        class="media-left"
-                        style="width:100%">
-                    Your browser does not support the
-                    <code>audio</code> element.
-                </audio>
-            </div>
+                      <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                          <audio class="listen" preload="none" data-size="50" src="audios/008_inear.wav" type="audio/wav"></audio>
+                      </div>
+                      <h5 class="text-center">In-ear (simulated)</h5>
+                    </div>
 
-            <div class="col-sm-4">
-                <h5>EBEN</h5>
-                <audio
-                        controls
-                        src="audios/008_eben.wav"
-                        class="media-left"
-                        style="width:100%">
-                    Your browser does not support the
-                    <code>audio</code> element.
-                </audio>
-        </div>
-    </div>
-    </div>
+                    <div class="col-sm-2">
+                        <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                            <audio class="listen" preload="none" data-size="50" src="audios/008_eben.wav" type="audio/wav"></audio>
+                        </div>
+                        <h5 class="text-center" style="color: #2761ff;">EBEN (ours)</h5>
+
+                </div>
+
+
+                    <div class="col-sm-2">
+                      <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                          <audio class="listen" preload="none" data-size="50" src="audios/008_ref.wav" type="audio/wav"></audio>
+                      </div>
+                      <h5 class="text-center">Reference</h5>
+
+                    </div>
+
+
+              </div>
+
+
+                <div class="row justify-content-center">
+
+                  <div class="col-sm-2">
+                      <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                          <audio class="listen" preload="none" data-size="50" src="audios/008_hifigan.wav" type="audio/wav"></audio>
+                      </div>
+                      <h5 class="text-center">HifiGAN v3</h5>
+
+                  </div>
+
+                  <div class="col-sm-2">
+                    <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                        <audio class="listen" preload="none" data-size="50" src="audios/008_kuleshov.wav" type="audio/wav"></audio>
+                    </div>
+                      <h5 class="text-center">Kuleshov</h5>
+                  </div>
+
+
+                    <div class="col-sm-2">
+                      <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                          <audio class="listen" preload="none" data-size="50" src="audios/008_seanet.wav" type="audio/wav"></audio>
+                      </div>
+                        <h5 class="text-center">Seanet</h5>
+                    </div>
+
+
+                    <div class="col-sm-2">
+                      <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                          <audio class="listen" preload="none" data-size="50" src="audios/008_streaming.wav" type="audio/wav"></audio>
+                      </div>
+                        <h5 class="text-center">Streaming Seanet</h5>
+
+                    </div>
+
 
 
      <div class="section">
@@ -350,7 +330,7 @@ align-items:center; height:min(500px,max(70vh,80vw))">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
-        <script src="player.js"></script>
+        <script src="js/player.js"></script>
 
         <script>
             $(document).ready(function () {
