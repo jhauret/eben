@@ -24,7 +24,8 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="progres-bar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-  <link rel="stylesheet" href="style_zoom.css">
+    <link rel="stylesheet" href="magnify.css" />
+
 
 
     <!--    <link rel="icon" href="img/favicon.gif" type="image/gif">-->
@@ -60,8 +61,18 @@
             We present Extreme Bandwidth Extension Network (EBEN), a generative adversarial network (GAN) that enhances audio measured with noise-resilient microphones. This type of capture equipment suppresses ambient noise at the expense of speech bandwidth, thereby requiring signal enhancement techniques to recover the wideband speech signal. EBEN leverages a multiband decomposition of the raw captured speech to decrease the data time-domain dimensions, and give better control over the full-band signal. This multiband representation is fed to a U-Net-like model, which adopts a combination of feature and adversarial losses to recover an enhanced audio signal. We also benefit from this original representation in the proposed discriminator architecture. Our approach can achieve state-of-the-art results with a lightweight generator and real-time compatible operation.
         </p>
 
-        <div class="img-magnifier-container">
-          <img id="myimage" src="img/spec_eben.png" width="600" height="400" alt="Girl">
+        <div class="magnify">
+          <div
+            class="magnifier"
+            style="
+              background-image: url(img/spec_eben.png);
+            "
+          ></div>
+          <div class="magnified">
+            <img
+              src="img/spec_eben.png"
+            />
+          </div>
         </div>
 
 
@@ -333,6 +344,7 @@ align-items:center; height:min(500px,max(70vh,80vw))">
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
         <script src="js/player.js"></script>
+        <script src="js/script_magnify.js"></script>
 
         <script>
             $(document).ready(function () {
