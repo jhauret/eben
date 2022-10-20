@@ -8,8 +8,8 @@
             text-align: center;
         }
         .book-section > .container{
-            height: 355px;
-            width: 500px;
+          aspect-ratio: 1.44;
+          width: 95%;
             position: relative;
             border-radius: 2%;
             margin-bottom: 30px;
