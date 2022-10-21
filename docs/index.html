@@ -86,7 +86,7 @@
                     <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
                         <audio class="listen" preload="none" data-size="50" src="audios/008_inear.wav" type="audio/wav"></audio>
                     </div>
-                    <h5 class="text-center">In-ear (simulated)</h5>
+                    <h5 class="text-center">In-ear</h5>
                     <p class="text-center">(simulated)</p>
                   </div>
 
@@ -94,7 +94,9 @@
                       <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
                           <audio class="listen" preload="none" data-size="50" src="audios/008_eben.wav" type="audio/wav"></audio>
                       </div>
-                      <h5 class="text-center" style="color: #2761ff;">EBEN (ours)</h5>
+                      <h5 class="text-center" style="color: #2761ff;">EBEN</h5>
+                      <p class="text-center">(ours)</p>
+
 
               </div>
 
@@ -151,10 +153,10 @@
 
 
    <div class="section">
-      <h2> Funny effect </h2>
+      <h2> Funny experiments </h2>
       <hr>
       <p>
-          <center> In this example, we trained a model in English and inferred it on French. We can notice a strong accent which makes the enhanced audio incomprehensible.
+          <center> In this example, we trained a bandwidth extension model with an english dataset, and inferred it on a french spoken degraded audio.<br> In the obtained enhanced audio, you'll notice a strong "accent", which sounds like an english native, trying to read a french sentence.<br><br>
           Objective metrics do not penalize this behavior and give similar scores to models trained in the same language as inference.  </center>
       </p>
       <div class="row justify-content-center">
