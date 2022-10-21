@@ -21,16 +21,16 @@ body {
 
 
 .magnify .magnifier {
-  height: 150px;
-  width: 150px;
+  height: 250px;
+  width: 250px;
   position: absolute;
   z-index: 20;
   border: 4px solid white;
   border-radius: 50%;
   background-size: 1000%;
   background-repeat: no-repeat;
-  margin-left: -75px !important;
-  margin-top: -75px !important;
+  margin-left: -125px !important;
+  margin-top: -125px !important;
   pointer-events: none;
   display: none;
 }
