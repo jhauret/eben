@@ -156,32 +156,41 @@
       <h2> Funny experiments </h2>
       <hr>
       <p>
-          <center> In this example, we trained a bandwidth extension model with an english dataset, and inferred it on a french spoken degraded audio.<br> In the obtained enhanced audio, you'll notice a strong "accent", which sounds like an english native, trying to read a french sentence.<br><br>
+          <center> In this example, we trained a bandwidth extension model on a given language, and inferred it on a degraded audio in another language.<br> In the obtained enhanced audio, you'll notice a strong "accent" based on the language the model was trained on.<br><br>
           Objective metrics do not penalize this behavior and give similar scores to models trained in the same language as inference.  </center>
       </p>
+      <!--    French -->
       <div class="row justify-content-center">
-
-        <div class="col-sm-2">
-          <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-              <audio class="listen" preload="none" data-size="50" src="audios/funny_corrupted.wav" type="audio/wav"></audio>
-          </div>
-            <h5 class="text-center">In-ear </h5>
-            <p class="text-center">(french)</p>
-          </div>
-
           <div class="col-sm-2">
             <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                <audio class="listen" preload="none" data-size="50" src="audios/funny_enhanced.wav" type="audio/wav"></audio>
+                <audio class="listen" preload="none" data-size="50" src="audios/funny_french_enhanced.wav" type="audio/wav"></audio>
             </div>
               <h5 class="text-center">Enhanced </h5>
               <p class="text-center">(by a model trained with english content)</p>
           </div>
           <div class="col-sm-2">
               <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                  <audio class="listen" preload="none" data-size="50" src="audios/funny_reference.wav" type="audio/wav"></audio>
+                  <audio class="listen" preload="none" data-size="50" src="audios/funny_french_reference.wav" type="audio/wav"></audio>
               </div>
               <h5 class="text-center">Reference</h5>
               <p class="text-center">(french)</p>
+          </div>
+      </div>
+        <!--  Enlijsh -->
+    <div class="row justify-content-center">
+          <div class="col-sm-2">
+            <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                <audio class="listen" preload="none" data-size="50" src="audios/funny_english_enhanced.wav" type="audio/wav"></audio>
+            </div>
+              <h5 class="text-center">Enhanced </h5>
+              <p class="text-center">(by a model trained with french content)</p>
+          </div>
+          <div class="col-sm-2">
+              <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                  <audio class="listen" preload="none" data-size="50" src="audios/funny_english_reference.wav" type="audio/wav"></audio>
+              </div>
+              <h5 class="text-center">Reference</h5>
+              <p class="text-center">(english)</p>
           </div>
       </div>
   </div>
