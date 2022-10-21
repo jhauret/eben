@@ -7,31 +7,35 @@ body {
   display: inline-block;
   position: relative;
   left: 50%;
+  width:100%;
   transform: translateX(-50%);
 }
+
+
 .magnify .magnified {
   display: block;
   z-index: 10;
   margin: auto;
-  width: 600px;
-  height: 450px;
-  border: 5px solid #fff;
+  width: 100%
 }
+
+
 .magnify .magnifier {
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 150px;
   position: absolute;
   z-index: 20;
   border: 4px solid white;
   border-radius: 50%;
   background-size: 1000%;
   background-repeat: no-repeat;
-  margin-left: -100px !important;
-  margin-top: -100px !important;
+  margin-left: -75px !important;
+  margin-top: -75px !important;
   pointer-events: none;
   display: none;
 }
+
+
 img{
   width: 100%;
-  height:100%;
 }

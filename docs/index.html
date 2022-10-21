@@ -18,6 +18,9 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <script type="text/javascript" src="https://cdn.plot.ly/plotly-2.4.2.min.js"></script>
+<script type="text/javascript" src="js/change_specs.js"></script>
+
+
 
     <!-- Custom styles for this template -->
     <link href="offcanvas.css" rel="stylesheet">
@@ -61,94 +64,177 @@
             We present Extreme Bandwidth Extension Network (EBEN), a generative adversarial network (GAN) that enhances audio measured with noise-resilient microphones. This type of capture equipment suppresses ambient noise at the expense of speech bandwidth, thereby requiring signal enhancement techniques to recover the wideband speech signal. EBEN leverages a multiband decomposition of the raw captured speech to decrease the data time-domain dimensions, and give better control over the full-band signal. This multiband representation is fed to a U-Net-like model, which adopts a combination of feature and adversarial losses to recover an enhanced audio signal. We also benefit from this original representation in the proposed discriminator architecture. Our approach can achieve state-of-the-art results with a lightweight generator and real-time compatible operation.
         </p>
 
+</div>
+
+<div class="section">
+   <h2>Paper</h2>
+   <hr>
+       <div class="book-section">
+         <div class="container">
+            <div class="right">
+                 <figure class="back" id="back-cover" style="background-size:100% 100%; background-image: url(img/page6.webp);"></figure>
+                 <figure class="front" style="background-size:100% 100%; background-image: url(img/page5.webp);"></figure>
+             </div>
+             <div class="right">
+               <figure class="back" style="background-size:100% 100%; background-image: url(img/page4.webp);"></figure>
+                 <figure class="front" style="background-size:100% 100%; background-image: url(img/page3.webp);"></figure>
+             </div>
+             <div class="right">
+               <figure class="back" style="background-size:100% 100%; background-image: url(img/page2.webp);"></figure>
+                 <figure class="front" style="background-size:100% 100%; background-image: url(img/page1.webp);"></figure>
+             </div>
+             <div class="right" style="text-align: center; max-width:90%">
+                 <figure class="back" >
+                   <br><p style="width:90%; font-size: min(3vw, 24px); margin: 0 auto; text-align: center;"><b><a href="https://stackoverflow.com/questions/2906582/how-do-i-create-an-html-button-that-acts-like-a-link">EBEN : <br>Extreme Bandwidth Extension Network
+ applied to speech signals captured with noise-resilient microphones</a></b></p>
+                   <hr width=50%>
+                                     <p style="font-size: min(3vw, 24px);  width:90%; margin: 0 auto; text-align: center;"><small>Submitted to ICASSP 2023</small></p>
+                                     <hr width=50%>
+                                     <a class="btn btn-primary" style="font-size: min(3vw, 24px);  position: absolute;bottom:15px;left:20px;right:20px;" href="https://stackoverflow.com/questions/2906582/how-do-i-create-an-html-button-that-acts-like-a-link">Read on ArXiV</a>
+                                     </a>
+                                   </figure>
+                 <figure class="front" id="cover" style="background-size:100% 100%; background-image: url(img/page0.webp);">
+                 </figure>
+             </div>
+         </div>
+         <button class="btn btn-secondary" onclick="turnLeft()">< Previous page</button> <button class="btn btn-secondary" onclick="turnRight()">Next page > </button>
+         <br/>
+     </div>
+ <!-- partial -->
+   <script  src="js/script.js"></script>
+
+</div>
+
+
+<div class="section">
+  <h2> Listen to in-ear, reference and enhanced audios </h2>
+  <hr>
+  <div class="row justify-content-center">
+
+              <div class="col-sm-2">
+
+                <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                    <audio class="listen" preload="none" data-size="50" src="audios/008_inear.wav" type="audio/wav"></audio>
+                </div>
+                <h5 class="text-center">In-ear</h5>
+                <p class="text-center">(simulated)</p>
+              </div>
+
+              <div class="col-sm-2">
+                  <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                      <audio class="listen" preload="none" data-size="50" src="audios/008_eben.wav" type="audio/wav"></audio>
+                  </div>
+                  <h5 class="text-center" style="color: #2761ff;">EBEN</h5>
+                  <p class="text-center">(ours)</p>
+
+
+          </div>
+
+
+              <div class="col-sm-2">
+                <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                    <audio class="listen" preload="none" data-size="50" src="audios/008_ref.wav" type="audio/wav"></audio>
+                </div>
+                <h5 class="text-center">Reference</h5>
+
+              </div>
+
+
+        </div>
+
+
+          <div class="row justify-content-center">
+
+            <div class="col-sm-2">
+                <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                    <audio class="listen" preload="none" data-size="50" src="audios/008_hifigan.wav" type="audio/wav"></audio>
+                </div>
+                <h5 class="text-center">HifiGAN v3</h5>
+
+            </div>
+
+            <div class="col-sm-2">
+              <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                  <audio class="listen" preload="none" data-size="50" src="audios/008_kuleshov.wav" type="audio/wav"></audio>
+              </div>
+                <h5 class="text-center">Kuleshov</h5>
+            </div>
+
+
+              <div class="col-sm-2">
+                <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                    <audio class="listen" preload="none" data-size="50" src="audios/008_seanet.wav" type="audio/wav"></audio>
+                </div>
+                  <h5 class="text-center">Seanet</h5>
+              </div>
+
+
+              <div class="col-sm-2">
+                <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                    <audio class="listen" preload="none" data-size="50" src="audios/008_streaming.wav" type="audio/wav"></audio>
+                </div>
+                  <h5 class="text-center">Streaming Seanet</h5>
+
+              </div>
+            </div>
+          </div>
+
+<div class="section">
+  <h2> Inspect corresponding spectrograms by yourself ! </h2>
+  <hr>
+
+        <div class="row justify-content-center">
+
+
+        <div data-toggle="buttons" class="col-md-12 text-center">
+        <div class="btn-group btn-group-sm btn-group-justified btn-group btn-group-toggle mb-1">
+          <label class="btn btn-outline-primary btn-sm">
+            <input type="radio" name="options" id="btn-In-ear" onclick="toggle_inear()"> In-ear
+          </label>
+          <label class="btn btn-outline-primary btn-sm">
+            <input type="radio" name="options" id="btn-Eben" onclick="toggle_eben()" checked> EBEN (ours)
+          </label>
+          <label class="btn btn-outline-primary btn-sm">
+            <input type="radio" name="options" id="btn-Ref"  onclick="toggle_ref()"> Reference
+          </label>
+        </div><br>
+          <div class="btn-group btn-group-sm btn-group-justified btn-group btn-group-toggle">
+          <label class="btn btn-outline-primary btn-sm">
+            <input type="radio" name="options" id="btn-hifigan"  onclick="toggle_hifigan()"> HifiGAN
+          </label>
+          <label class="btn btn-outline-primary btn-sm">
+            <input type="radio" name="options" id="btn-kulshov" onclick="toggle_kuleshov()"> Kuleshov
+          </label>
+          <label class="btn btn-outline-primary btn-sm">
+            <input type="radio" name="options" id="btn-seanet" onclick="toggle_seanet()"> Seanet
+          </label>
+          <label class="btn btn-outline-primary btn-sm">
+            <input type="radio" name="options" id="btn-streaming" onclick="toggle_streaming()"> Streaming Seanet
+          </label>
+        </div>
+      </div>
+
+</div>
+
+
         <div class="magnify">
-          <div
+
+
+          <div id ="spec_zoom"
             class="magnifier"
             style="
-              background-image: url(img/spec_eben.png);
+              background-image: url(img/only_eben.png);
             "
-          ></div>
+          >
+        </div>
           <div class="magnified">
-            <img
-              src="img/spec_eben.png"
+            <img id="spec"
+              src="img/spec_eben.png" style='height: 100%; width: 100%; object-fit: contain'
             />
           </div>
         </div>
 
-
-    <div class="section">
-      <h2> Listen to in-ear, reference and enhanced audios </h2>
-      <hr>
-      <div class="row justify-content-center">
-
-                  <div class="col-sm-2">
-
-                    <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                        <audio class="listen" preload="none" data-size="50" src="audios/008_inear.wav" type="audio/wav"></audio>
-                    </div>
-                    <h5 class="text-center">In-ear</h5>
-                    <p class="text-center">(simulated)</p>
-                  </div>
-
-                  <div class="col-sm-2">
-                      <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                          <audio class="listen" preload="none" data-size="50" src="audios/008_eben.wav" type="audio/wav"></audio>
-                      </div>
-                      <h5 class="text-center" style="color: #2761ff;">EBEN</h5>
-                      <p class="text-center">(ours)</p>
-
-
-              </div>
-
-
-                  <div class="col-sm-2">
-                    <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                        <audio class="listen" preload="none" data-size="50" src="audios/008_ref.wav" type="audio/wav"></audio>
-                    </div>
-                    <h5 class="text-center">Reference</h5>
-
-                  </div>
-
-
-            </div>
-
-
-              <div class="row justify-content-center">
-
-                <div class="col-sm-2">
-                    <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                        <audio class="listen" preload="none" data-size="50" src="audios/008_hifigan.wav" type="audio/wav"></audio>
-                    </div>
-                    <h5 class="text-center">HifiGAN v3</h5>
-
-                </div>
-
-                <div class="col-sm-2">
-                  <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                      <audio class="listen" preload="none" data-size="50" src="audios/008_kuleshov.wav" type="audio/wav"></audio>
-                  </div>
-                    <h5 class="text-center">Kuleshov</h5>
-                </div>
-
-
-                  <div class="col-sm-2">
-                    <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                        <audio class="listen" preload="none" data-size="50" src="audios/008_seanet.wav" type="audio/wav"></audio>
-                    </div>
-                      <h5 class="text-center">Seanet</h5>
-                  </div>
-
-
-                  <div class="col-sm-2">
-                    <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                        <audio class="listen" preload="none" data-size="50" src="audios/008_streaming.wav" type="audio/wav"></audio>
-                    </div>
-                      <h5 class="text-center">Streaming Seanet</h5>
-
-                  </div>
-                </div>
-              </div>
-
+      </div>
 
 
 
@@ -156,47 +242,47 @@
       <h2> Funny experiments </h2>
       <hr>
       <p>
-          <center> In this example, we trained a bandwidth extension model on a given language, and inferred it on a degraded audio in another language.<br> In the obtained enhanced audio, you'll notice a strong "accent" based on the language the model was trained on.<br><br>
+          <center> In this example, we trained a bandwidth extension model with on a given language dataset, and inferred it on a degraded audio in another language.<br> In the obtained enhanced audio, you'll notice a strong "accent", based on the language the model was trained for.<br><br>
           Objective metrics do not penalize this behavior and give similar scores to models trained in the same language as inference.  </center>
       </p>
       <!--    French -->
-      <div class="row justify-content-center">
-          <div class="col-sm-4">
-            <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                <audio class="listen" preload="none" data-size="50" src="audios/funny_french_enhanced.wav" type="audio/wav"></audio>
+            <div class="row justify-content-center">
+                <div class="col-sm-4">
+                  <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                      <audio class="listen" preload="none" data-size="50" src="audios/funny_french_enhanced.wav" type="audio/wav"></audio>
+                  </div>
+                    <h5 class="text-center">Enhanced </h5>
+                    <p class="text-center">(by a model trained with english content)</p>
+                </div>
+                <div class="col-sm-4">
+                    <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                        <audio class="listen" preload="none" data-size="50" src="audios/funny_french_reference.wav" type="audio/wav"></audio>
+                    </div>
+                    <h5 class="text-center">Reference</h5>
+                    <p class="text-center">(french)</p>
+                </div>
             </div>
-              <h5 class="text-center">Enhanced </h5>
-              <p class="text-center">(by a model trained with english content)</p>
-          </div>
-          <div class="col-sm-4">
-              <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                  <audio class="listen" preload="none" data-size="50" src="audios/funny_french_reference.wav" type="audio/wav"></audio>
-              </div>
-              <h5 class="text-center">Reference</h5>
-              <p class="text-center">(french)</p>
-          </div>
-      </div>
-        <!--  Enlijsh -->
-    <div class="row justify-content-center">
-          <div class="col-sm-4">
-            <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                <audio class="listen" preload="none" data-size="50" src="audios/funny_english_enhanced.wav" type="audio/wav"></audio>
+              <!--  Enlijsh -->
+          <div class="row justify-content-center">
+                <div class="col-sm-4">
+                  <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                      <audio class="listen" preload="none" data-size="50" src="audios/funny_english_enhanced.wav" type="audio/wav"></audio>
+                  </div>
+                    <h5 class="text-center">Enhanced </h5>
+                    <p class="text-center">(by a model trained with french content)</p>
+                </div>
+                <div class="col-sm-4">
+                    <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
+                        <audio class="listen" preload="none" data-size="50" src="audios/funny_english_reference.wav" type="audio/wav"></audio>
+                    </div>
+                    <h5 class="text-center">Reference</h5>
+                    <p class="text-center">(english)</p>
+                </div>
             </div>
-              <h5 class="text-center">Enhanced </h5>
-              <p class="text-center">(by a model trained with french content)</p>
-          </div>
-          <div class="col-sm-4">
-              <div class="mediPlayer d-flex align-items-center justify-content-center" style="margin-bottom: 10px ;">
-                  <audio class="listen" preload="none" data-size="50" src="audios/funny_english_reference.wav" type="audio/wav"></audio>
-              </div>
-              <h5 class="text-center">Reference</h5>
-              <p class="text-center">(english)</p>
-          </div>
-      </div>
-  </div>
+        </div>
 
 
-     <div class="section">
+     <!-- <div class="section">
         <h2>  Spectrograms per method: In-ear | Enhanced | Reference </h2>
         <hr>
 
@@ -230,47 +316,6 @@
          <iframe class="embed-responsive-item" src="plotly/multi.html" scrolling="no" ></iframe>
          </div>
          -->
-     </div>
-
-     <div class="section">
-        <h2>Paper</h2>
-        <hr>
-            <div class="book-section">
-              <div class="container">
-                 <div class="right">
-                      <figure class="back" id="back-cover" style="background-size:100% 100%; background-image: url(img/page6.webp);"></figure>
-                      <figure class="front" style="background-size:100% 100%; background-image: url(img/page5.webp);"></figure>
-                  </div>
-                  <div class="right">
-                    <figure class="back" style="background-size:100% 100%; background-image: url(img/page4.webp);"></figure>
-                      <figure class="front" style="background-size:100% 100%; background-image: url(img/page3.webp);"></figure>
-                  </div>
-                  <div class="right">
-                    <figure class="back" style="background-size:100% 100%; background-image: url(img/page2.webp);"></figure>
-                      <figure class="front" style="background-size:100% 100%; background-image: url(img/page1.webp);"></figure>
-                  </div>
-                  <div class="right" style="text-align: center; max-width:90%">
-                      <figure class="back" >
-                        <br><p style="width:90%; font-size: min(3vw, 24px); margin: 0 auto; text-align: center;"><b><a href="https://stackoverflow.com/questions/2906582/how-do-i-create-an-html-button-that-acts-like-a-link">EBEN : <br>Extreme Bandwidth Extension Network
-      applied to speech signals captured with noise-resilient microphones</a></b></p>
-                        <hr width=50%>
-                                          <p style="font-size: min(3vw, 24px);  width:90%; margin: 0 auto; text-align: center;"><small>Submitted to ICASSP 2023</small></p>
-                                          <hr width=50%>
-                                          <a class="btn btn-primary" style="font-size: min(3vw, 24px);  position: absolute;bottom:15px;left:20px;right:20px;" href="https://stackoverflow.com/questions/2906582/how-do-i-create-an-html-button-that-acts-like-a-link">Read on ArXiV</a>
-                                          </a>
-                                        </figure>
-                      <figure class="front" id="cover" style="background-size:100% 100%; background-image: url(img/page0.webp);">
-                      </figure>
-                  </div>
-              </div>
-              <button class="btn btn-secondary" onclick="turnLeft()">< Previous page</button> <button class="btn btn-secondary" onclick="turnRight()">Next page > </button>
-              <br/>
-          </div>
-      <!-- partial -->
-        <script  src="js/script.js"></script>
-
-    </div>
-
 
 
      <div class="section">
