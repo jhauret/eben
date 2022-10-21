@@ -50,7 +50,7 @@
     </p>
     <div class="btn-group" role="group" aria-label="Top menu">
         <a class="btn btn-primary" href="https://2023.ieeeicassp.org/">Paper</a>
-        <a class="btn btn-primary" href="https://colab.research.google.com/github/jhauret/eben/blob/main/PQMF_playground.ipynb">Notebook</a>
+        <a class="btn btn-primary" href="https://colab.research.google.com/github/jhauret/eben/blob/main/playground.ipynb">Notebook</a>
         <a class="btn btn-primary" href="https://github.com/jhauret/eben">Code</a>
         <a class="btn btn-primary" href="https://www.cotral-communication.com/en/industry.html">Prototype</a>
     </div>
@@ -336,7 +336,7 @@
     <label class="btn btn-outline-primary btn-sm">
       <input type="radio" name="options" id="btn-quality" onclick="toggle_quality()" checked> Quality
     </label>
-    <label class="btn btn-outline-primary btn-sm">
+    <label class="btn btn-outline-primary btn-sm mb-2">
       <input type="radio" name="options" id="btn-intelligibility"  onclick="toggle_intelligibility()"> Intellligibility
     </label>
   </div>
@@ -372,33 +372,49 @@ align-items:center; height:min(500px,max(70vh,80vw))">
             <hr>
 
 
-          <br>
+            <div class="accordion" id="accordionExample">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+Short-time Objective Intelligibility (STOI)         </button>
+      </h2>
+    </div>
 
-          <div class="allblur embed-responsive" style="width:80%  justify-content:center;
- align-items:center; height:min(500px,max(70vh,80vw))">
- <!-- STOI data : -->
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+        <img src="img/STOI_stats.png" style='width: 80%; object-fit: contain'/>
+            </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Scale-Invariant Signal-to-Distorsion Ration (SI-SDR)
+        </button>
+      </h2>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body">
+        <img src="img/SI_SDR_stats.png" style='width: 80%; object-fit: contain'/>      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Wideband Perceptual Evaluation of Speech Quality (PESQ)
+        </button>
+      </h2>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+      <div class="card-body">
+        <img src="img/PESQ_stats.png" style='width: 80%; object-fit: contain'/>      </div>
+    </div>
+  </div>
+</div>
 
- <img id="spec"
-   src="img/STOI_stats.png" style='height: 100%; width: 100%; object-fit: contain'
- />
-           </div>
-           <br>
-         <div class="allblur embed-responsive" style="width:80%  justify-content:center;
-align-items:center; height:min(500px,max(70vh,80vw))">
-<!-- SI-SDR data : -->
-<img id="spec"
-  src="img/SI_SDR_stats.png" style='height: 100%; width: 100%; object-fit: contain'
-/>
-          </div>
-          <br>
-         <div class="allblur embed-responsive" style="width:80%  justify-content:center;
-align-items:center; height:min(500px,max(70vh,80vw))">
-<!-- PESQ data : -->
-<img id="spec"
-  src="img/PESQ_stats.png" style='height: 100%; width: 100%; object-fit: contain'
-/>
-     </div>
-         <br>
 
      </div>
 
