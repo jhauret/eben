@@ -14,6 +14,22 @@ To install requirements:
 pip install -r requirements.txt
 ```
 
+## Download data
+
+#### [French Librispeech](https://arxiv.org/abs/2012.03411)
+
+```bash
+wget https://dl.fbaipublicfiles.com/mls/mls_french.tar.gz
+tar xvf mls_french.tar.gz
+rm mls_french.tar.gz
+```
+
+#### [English Librispeech](https://ieeexplore.ieee.org/document/7178964)
+
+```bash
+comming soon...
+```
+
 ## Training
 
 To train EBEN, run this command:
