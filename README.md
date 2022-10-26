@@ -59,7 +59,7 @@ Our model achieves the following performance on :
 
 ### [Bandwidth Extension](https://paperswithcode.com/task/bandwidth-extension)
 
-| SpeechMetrics | PESQ               | SI-SDR              | STOI                 | MUSHRA-I         | MUSHRA-Q         | Gen params     | Dis params      |
+| Speech\Metrics | PESQ               | SI-SDR              | STOI                 | MUSHRA-I         | MUSHRA-Q         | Gen params     | Dis params      |
 |------------------------------------------------------|--------------------|---------------------|----------------------|------------------|------------------|----------------|-----------------|
 | Simulated In-ear                                     | 2.42 (0.34)        | 8.4 (3.7)           | 0.83 (0.05)          | 51 (29)          | 24 (18)          | $\emptyset$    | $\emptyset$     |
 | Audio U-net                 | **2.24 (0.49)** | **11.9 (3.7)** | 0.87 (0.04)          | 60 (26)          | 33 (18)          | 71.0 M         | $\emptyset$     |
