@@ -14,7 +14,7 @@ def train():
 
     # Instantiate datamodule
     datamodule: LightningDataModule = CustomLibriSpeechDM(path_to_dataset='./mls_french',
-                                                          sr_standard=16000, bs_train=8,
+                                                          sr_standard=16000, bs_train=16,
                                                           len_seconds_train=2, num_workers=4)
 
     # Instantiate EBEN
