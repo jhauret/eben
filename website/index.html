@@ -386,7 +386,7 @@ align-items:center; height:min(500px,max(70vh,80vw))">
         <h2>EBEN hyperparameters</h2>
         <hr>
           <div class="card">
-            <div class="card-header allblur" id="headingThree">
+            <div class="card-header allblur" id="headingFour">
               <h2 class="mb-0">
                 <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseOpt" aria-expanded="false" aria-controls="collapseOpt">
                 <p style="width:90%; font-size: min(3vw, 18px); margin: 0 auto; text-align: center;"> Optimizer </p>
@@ -412,7 +412,7 @@ align-items:center; height:min(500px,max(70vh,80vw))">
           </div>
 
                     <div class="card">
-            <div class="card-header allblur" id="headingThree">
+            <div class="card-header allblur" id="headingFive">
               <h2 class="mb-0">
                 <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseData" aria-expanded="false" aria-controls="collapseData">
                 <p style="width:90%; font-size: min(3vw, 18px); margin: 0 auto; text-align: center;"> Data </p>
@@ -438,7 +438,7 @@ align-items:center; height:min(500px,max(70vh,80vw))">
           </div>
 
                     <div class="card">
-            <div class="card-header allblur" id="headingThree">
+            <div class="card-header allblur" id="headingSix">
               <h2 class="mb-0">
                 <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapsePQMF" aria-expanded="false" aria-controls="collapsePQMF">
                 <p style="width:90%; font-size: min(3vw, 18px); margin: 0 auto; text-align: center;"> PQMF </p>
@@ -463,8 +463,8 @@ align-items:center; height:min(500px,max(70vh,80vw))">
             </div>
           </div>
 
-              <div class="card">
-            <div class="card-header allblur" id="headingThree">
+          <div class="card">
+            <div class="card-header allblur" id="headingSeven">
               <h2 class="mb-0">
                 <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseLoss" aria-expanded="false" aria-controls="collapseLoss">
                 <p style="width:90%; font-size: min(3vw, 18px); margin: 0 auto; text-align: center;"> Loss ponderation </p>
@@ -481,6 +481,30 @@ align-items:center; height:min(500px,max(70vh,80vw))">
                     <tr>
                       <td>100</td>
                       <td>1</td>
+                    </tr>
+                  </table>
+               </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header allblur" id="headingEight">
+              <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseNL" aria-expanded="false" aria-controls="collapseNL">
+                <p style="width:90%; font-size: min(3vw, 18px); margin: 0 auto; text-align: center;"> Activation functions </p>
+                </button>
+              </h2>
+            </div>
+            <div id="collapseNL" class="collapse allblur" aria-labelledby="headingThree" data-parent="#accordionMetrics">
+              <div class="card-body align-items-center d-flex justify-content-center">
+                    <table style="width:100%">
+                    <tr>
+                      <th>Generator</th>
+                      <th>Discriminators</th>
+                    </tr>
+                    <tr>
+                      <td>LeakyReLU(negative_slope=0.01)</td>
+                      <td>LeakyReLU(negative_slope=0.2)</td>
                     </tr>
                   </table>
                </div>
