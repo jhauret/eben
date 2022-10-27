@@ -68,3 +68,17 @@ Our model achieves the following performance on :
 | Streaming-Seanet                        | 2.01 (0.46)        | 11.2 (3.6)          | **0.89 (0.04)** | 66 (20)          | 61 (14)          | **0.7 M** | 56.6  M         |
 | EBEN (ours)                                          | 2.08 (0.45)        | 10.9 (3.3)          | **0.89 (0.04)** | **73 (14)** | **76 (14)** | 1.9 M          | **26.5 M** |
 
+## Cite our work
+
+```
+@article{hauret2023eben,
+        title={EBEN: Extreme Bandwidth Extension Network applied to
+        speech signals captured with noise-resilient microphones},
+        author={Hauret, Julien and Joubaud, Thomas and Zimpfer,
+               Véronique and Bavu, Eric},
+        journal={Submitted to ICASSP 2023}
+        doi = {10.48550/ARXIV.2210.14090},
+        year = {2022},
+        url = {https://arxiv.org/abs/2210.14090},
+        copyright = {Creative Commons Attribution 4.0 International}}
+```
