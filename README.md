@@ -43,7 +43,7 @@ python train.py
 To evaluate EBEN on French Librispeech, run:
 
 ```eval
-python eval.py --model-file mymodel.pth --benchmark imagenet
+comming soon...
 ```
 
 ## Pre-trained Models
