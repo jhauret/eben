@@ -14,23 +14,21 @@ To install requirements:
 pip install -r requirements.txt
 ```
 
-## Download data
+## Obtain your trained EBEN model
 
-#### [French Librispeech](https://arxiv.org/abs/2012.03411)
+### Option 1: download the pre-trained model discussed in [the article](https://arxiv.org/abs/2210.14090)
+```bash
+wget https://acoustique.cnam.fr/eben/last.ckpt
+```
+### Option 2: train your own model from scratch
+#### Download [French Librispeech](https://arxiv.org/abs/2012.03411)
 
 ```bash
 wget https://dl.fbaipublicfiles.com/mls/mls_french.tar.gz
 tar xvf mls_french.tar.gz
 rm mls_french.tar.gz
 ```
-
-#### [English Librispeech](https://ieeexplore.ieee.org/document/7178964)
-
-```bash
-comming soon...
-```
-
-## Training
+#### Training
 
 To train EBEN, run this command:
 
@@ -45,14 +43,6 @@ To evaluate EBEN on French Librispeech, run:
 ```eval
 python test.py
 ```
-
-## Pre-trained Models
-
-You can download pretrained models here:
-
-- [EBEN](https://drive.google.com/mymodel.pth) trained on French Librispeech with degradation x. 
-- 
-
 ## Results
 
 Our model achieves the following performance on :
