@@ -10,7 +10,7 @@ class EBEN(pl.LightningModule):
     EBEN LightningModule
     """
 
-    def __init__(self, generator, discriminator, lr, betas):
+    def __init__(self, generator, discriminator, lr=None, betas=None, metrics=None):
         super().__init__()
 
         self.sr = 16000
@@ -23,6 +23,8 @@ class EBEN(pl.LightningModule):
 
         self.l1 = torch.nn.L1Loss()
         self.relu = torch.nn.ReLU()
+
+        self.metrics = metrics
 
     def training_step(self, batch, batch_idx, optimizer_idx=0):
 
@@ -121,3 +123,9 @@ class EBEN(pl.LightningModule):
             torch.optim.Adam(params=self.discriminator.parameters(), lr=self.lr, betas=self.betas)]
 
         return optimizers
+
+    def on_test_batch_end(self, outputs, batch, batch_idx: int, dataloader_idx: int) -> None:
+        try:
+            self.log_dict(self.metrics(outputs['enhanced'], outputs['reference']))
+        except ValueError:
+            print('ValueError')
