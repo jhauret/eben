@@ -19,9 +19,8 @@ pip install -r requirements.txt
 ## Obtain your trained EBEN model
 
 ### Option 1: download the pre-trained model discussed in [the article](https://arxiv.org/abs/2210.14090)
-```bash
-wget https://acoustique.cnam.fr/eben/last.ckpt
-```
+You already have it in the project: `generator.ckpt`, only 7Mo.
+
 ### Option 2: train your own model from scratch
 #### Download [French Librispeech](https://arxiv.org/abs/2012.03411)
 
@@ -47,7 +46,7 @@ python test.py
 ```
 ## Results
 
-Our model achieves the following performance on [Bandwidth Extension](https://paperswithcode.com/task/bandwidth-extension)
+Our model achieves the following performance on [Bandwidth Extension](https://paperswithcode.com/task/bandwidth-extension).
 
 | Speech\Metrics | PESQ               | SI-SDR              | STOI                 | MUSHRA-I <br />  (88 participants)      | MUSHRA-Q <br />  (82 participants)         | Gen params     | Dis params      |
 |------------------------------------------------------|--------------------|---------------------|----------------------|------------------|------------------|----------------|-----------------|
