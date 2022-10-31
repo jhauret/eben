@@ -8,7 +8,7 @@ import torchaudio
 from torch import Tensor
 from torch.utils.data import Dataset, DataLoader
 from pytorch_lightning import LightningDataModule
-from temporal_transforms import TemporalTransforms
+from src.temporal_transforms import TemporalTransforms
 
 
 class CustomLibriSpeechDM(LightningDataModule):
