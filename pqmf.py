@@ -111,6 +111,15 @@ class PseudoQMFBanks(nn.Module):
         else:
             raise ValueError(f"stage: {stage} is not recognized by {self._get_name()}")
 
+    def cut_tensor(self, tensor):
+        """ This function is used to make tensor's dim 2 len divisible by _decimation """
+
+        old_len = tensor.shape[2]
+        new_len = old_len - (old_len + self._kernel_size) % self._decimation
+        tensor = torch.narrow(tensor, 2, 0, new_len)
+
+        return tensor
+
 
 if __name__ == '__main__':
 
@@ -118,7 +127,7 @@ if __name__ == '__main__':
     pqmf = PseudoQMFBanks(decimation=4, kernel_size=32)
 
     # Instantiate tensors with shape: (batch_size, channel, time_len)
-    audio = torch.rand(4, 1, 48000)
+    audio = pqmf.cut_tensor(torch.rand(4, 1, 48009))
 
     # Test analysis and synthesis
     audio_decomposed = pqmf(audio, "analysis")
