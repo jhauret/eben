@@ -1,7 +1,9 @@
 .ipynb_checkpoints
 
-./mls_french
+mls_french
 
-./lightning_logs
+lightning_logs
 
-./__pycache__
+__pycache__
+
+idea
