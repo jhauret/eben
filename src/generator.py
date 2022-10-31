@@ -3,7 +3,7 @@
 
 import torch
 from torch import nn
-from pqmf import PseudoQMFBanks
+from src.pqmf import PseudoQMFBanks
 
 
 class GeneratorEBEN(nn.Module):
