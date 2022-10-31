@@ -3,10 +3,10 @@
 
 import torch
 from pytorch_lightning import LightningDataModule, LightningModule, Trainer
-from eben import EBEN
-from generator import GeneratorEBEN
-from discriminator import DiscriminatorEBENMultiScales
-from librispeech_datamodule import CustomLibriSpeechDM
+from src.eben import EBEN
+from src.generator import GeneratorEBEN
+from src.discriminator import DiscriminatorEBENMultiScales
+from src.librispeech_datamodule import CustomLibriSpeechDM
 
 
 def train():
