@@ -8,7 +8,6 @@ from torchmetrics.audio import ShortTimeObjectiveIntelligibility, PerceptualEval
 
 from eben import EBEN
 from generator import GeneratorEBEN
-from discriminator import DiscriminatorEBENMultiScales
 from librispeech_datamodule import CustomLibriSpeechDM
 
 
@@ -25,15 +24,15 @@ def test():
                                 'stoi': ShortTimeObjectiveIntelligibility(fs=16000),
                                 'pesq': PerceptualEvaluationSpeechQuality(fs=16000, mode='wb')})
 
-    # Instantiate EBEN
+    # Instantiate EBEN and load pre-trained weights
     generator: torch.nn.Module = GeneratorEBEN(bands_nbr=4, pqmf_ks=32)
-    discriminator: torch.nn.Module = DiscriminatorEBENMultiScales()
-    eben: LightningModule = EBEN(generator=generator, discriminator=discriminator, metrics=metrics)
+    weights = torch.load('./generator.ckpt')
+    generator.load_state_dict(weights)
+    eben: LightningModule = EBEN(generator=generator, metrics=metrics)
     trainer: Trainer = Trainer(gpus=1)
 
     # Test
-    ckpt = './lightning_logs/version_0/checkpoints/epoch=34-step=1129660.ckpt'
-    trainer.test(model=eben, datamodule=datamodule, ckpt_path=ckpt)
+    trainer.test(model=eben, datamodule=datamodule)
 
 
 if __name__ == '__main__':

@@ -10,7 +10,7 @@ class EBEN(pl.LightningModule):
     EBEN LightningModule
     """
 
-    def __init__(self, generator, discriminator, lr=None, betas=None, metrics=None):
+    def __init__(self, generator, discriminator=None, lr=None, betas=None, metrics=None):
         super().__init__()
 
         self.sr = 16000
