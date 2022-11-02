@@ -19,7 +19,7 @@ pip install -r requirements.txt
 ## Obtain your trained EBEN model
 
 ### Option 1: download the pre-trained model discussed in [the article](https://arxiv.org/abs/2210.14090)
-You already have it in the project: `generator.ckpt`, only 7Mo.
+You already have it in the project: `src/generator.ckpt`, only 7Mo.
 
 ### Option 2: train your own model from scratch
 #### Download [French Librispeech](https://arxiv.org/abs/2012.03411)
