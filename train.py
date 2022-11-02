@@ -25,7 +25,7 @@ def train():
     trainer: Trainer = Trainer(gpus=1)
 
     # Fit
-    trainer.fit(model=eben, datamodule=datamodule)
+    trainer.fit(model=eben, datamodule=datamodule, max_epochs=13, enable_checkpointing=False)
 
 
 if __name__ == '__main__':
