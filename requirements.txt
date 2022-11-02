@@ -1,6 +1,6 @@
-pytorch-lightning==1.6.1
-torch
+torch==1.10.0
 torchaudio==0.11.0
+pytorch-lightning==1.6.1
 torchmetrics==0.8.0
 
 
