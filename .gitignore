@@ -9,3 +9,5 @@ __pycache__
 .idea
 
 nemo.flac
+
+.python-version
