@@ -16,26 +16,27 @@ To install requirements:
 pip install -r requirements.txt
 ```
 
-## Obtain your trained EBEN model
-
-### Option 1: download the pre-trained model discussed in [the article](https://arxiv.org/abs/2210.14090)
-You already have it in the project: `src/generator.ckpt`, only 7Mo.
-
-### Option 2: train your own model from scratch
-#### Download [French Librispeech](https://arxiv.org/abs/2012.03411)
+## Download [French Librispeech](https://arxiv.org/abs/2012.03411)
 
 ```bash
 wget https://dl.fbaipublicfiles.com/mls/mls_french.tar.gz
 tar xvf mls_french.tar.gz
 rm mls_french.tar.gz
 ```
-#### Training
+
+## Obtain your trained EBEN model
+
+### Option 1: use the pre-trained model discussed in [the article](https://arxiv.org/abs/2210.14090)
+You already have it in the project: `generator.ckpt`, only 7Mo.
+
+### Option 2: train your own model from scratch
 
 To train EBEN, run this command:
 
 ```train
 python train.py
 ```
+It will create/refresh `generator_retrained.ckpt` at the end of each epoch.
 
 ## Evaluation
 
