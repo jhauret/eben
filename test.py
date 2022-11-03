@@ -26,7 +26,7 @@ def test():
 
     # Instantiate EBEN and load pre-trained weights
     generator: torch.nn.Module = GeneratorEBEN(bands_nbr=4, pqmf_ks=32)
-    weights = torch.load('./generator_retrained.ckpt')
+    weights = torch.load('./generator.ckpt') # or 'generator_retrained.ckpt' if you have previously run train.py
     generator.load_state_dict(weights)
     eben: LightningModule = EBEN(generator=generator, metrics=metrics)
     trainer: Trainer = Trainer(gpus=1, logger=False)
