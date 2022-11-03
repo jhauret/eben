@@ -125,7 +125,7 @@ class EBEN(pl.LightningModule):
         return optimizers
 
     def on_train_epoch_end(self) -> None:
-        torch.save(obj=self.generator.state_dict(), f='./src/generator_retrained.ckpt')
+        torch.save(obj=self.generator.state_dict(), f='./generator_retrained.ckpt')
 
     def on_test_batch_end(self, outputs, batch, batch_idx: int, dataloader_idx: int) -> None:
         try:
