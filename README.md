@@ -31,16 +31,12 @@ You already have it in the project: `generator.ckpt`, only 7Mo.
 
 ### Option 2: train your own model from scratch
 
-To train EBEN, run this command:
-
 ```train
 python train.py
 ```
 It will create/refresh `generator_retrained.ckpt` at the end of each epoch.
 
 ## Evaluation
-
-To evaluate EBEN on French Librispeech, run:
 
 ```eval
 python test.py
