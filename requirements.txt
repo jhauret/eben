@@ -1,5 +1,0 @@
-torch==1.10.0
-torchaudio==0.10.0
-pytorch-lightning==1.5.8
-torchmetrics==0.7.0
-torchmetrics[audio]
