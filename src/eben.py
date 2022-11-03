@@ -31,7 +31,7 @@ class EBEN(pl.LightningModule):
         # batch is [audio_ref, audio_corrupted]
         cut_batch = [self.generator.cut_tensor(speech) for speech in batch]
 
-        ref_speech, corrupted_speech = cut_batch
+        reference_speech, corrupted_speech = cut_batch
 
         enhanced_speech, decomposed_enhanced_speech = self.generator(corrupted_speech)
         decomposed_reference_speech = self.generator.pqmf.forward(reference_speech, 'analysis')
