@@ -22,7 +22,7 @@ def train():
     discriminator: torch.nn.Module = DiscriminatorEBENMultiScales()
     eben: LightningModule = EBEN(generator=generator, discriminator=discriminator,
                                  lr=0.0003, betas=(0.5, 0.9))
-    trainer: Trainer = Trainer(gpus=1, max_epochs=13, enable_checkpointing=False, logger=False)
+    trainer: Trainer = Trainer(gpus=1, max_epochs=13, enable_checkpointing=False, logger=False, limit_val_batches=0)
 
     # Fit
     trainer.fit(model=eben, datamodule=datamodule)
