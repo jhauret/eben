@@ -64,7 +64,7 @@ In the above Table: format is median (interquartile range). Significantly best v
         speech signals captured with noise-resilient microphones},
         author={Hauret, Julien and Joubaud, Thomas and Zimpfer,
                Véronique and Bavu, Eric},
-        journal={Submitted to ICASSP 2023}
+        journal={Submitted to ICASSP 2023},
         doi = {10.48550/ARXIV.2210.14090},
         year = {2022},
         url = {https://arxiv.org/abs/2210.14090},
