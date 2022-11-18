@@ -156,7 +156,7 @@ class ResidualUnit(nn.Module):
     def __init__(self, channels, nl, dilation, bias=False):
         super().__init__()
 
-        self.depthwise_sep_conv = normalized_conv1d(in_channels=channels, out_channels=channels,
+        self.dilated_conv = normalized_conv1d(in_channels=channels, out_channels=channels,
                                                     kernel_size=3,
                                                     dilation=dilation, padding='same', bias=bias,
                                                     padding_mode='reflect')
@@ -166,7 +166,7 @@ class ResidualUnit(nn.Module):
         self.nl = nl
 
     def forward(self, x):
-        out = x + self.nl(self.pointwise_conv(self.depthwise_sep_conv(x)))
+        out = x + self.nl(self.pointwise_conv(self.dilated_conv(x)))
         return out
 
 
