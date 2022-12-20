@@ -14,7 +14,7 @@ from src.temporal_transforms import TemporalTransforms
 class CustomLibriSpeechDM(LightningDataModule):
 
     """
-    Custom Common Voice LightningDataModule.
+    Custom LibriSpeech LightningDataModule.
 
     This class encapsulates Pytorch dataloaders, prepare date and apply transforms.
 
