@@ -92,12 +92,12 @@ class PseudoQMFBanks(nn.Module):
     def forward(self, signal, stage, bands='all'):
         if stage == "analysis":
             if bands == 'all':
-                # compute only the first bands
+                # compute all bands
                 return torch.nn.functional.conv1d(signal, self.analysis_weights, bias=None,
                                                   stride=(self._decimation,),
                                                   padding=(self._kernel_size - 1,))
             else:
-                # compute all bands
+                # compute only the first bands
                 return torch.nn.functional.conv1d(signal, self.analysis_weights[:bands, :, :],
                                                   bias=None, stride=(self._decimation,),
                                                   padding=(self._kernel_size - 1,))
