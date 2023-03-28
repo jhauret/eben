@@ -27,7 +27,7 @@ rm mls_french.tar.gz
 
 ## Obtain your trained EBEN model
 
-### Option 1: use the pre-trained model discussed in [the article](https://arxiv.org/abs/2210.14090)
+### Option 1: use the pre-trained French model discussed in [the article](https://arxiv.org/abs/2210.14090)
 You already have it in the project: `generator.ckpt`, only 7Mo.
 
 ### Option 2: train your own model from scratch
