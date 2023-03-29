@@ -21,7 +21,7 @@ class TemporalTransforms:
             used for IRR response stabilisation
 
         deterministic: bool,
-            whether to apply a deterministic filter
+            whether to apply a deterministic filter and audio selection
 
     """
 
@@ -100,11 +100,11 @@ class TemporalTransforms:
 
         # filt-filt trick for 0-phase shift
         if not self.determinist:
-            hazard = torch.FloatTensor(2).uniform_(0.8, 1.2)
+            rand_factors = torch.FloatTensor(2).uniform_(0.8, 1.2)
 
             def lp(x):
-                return lowpass_biquad(x, sample_rate=self._sr, cutoff_freq=cutoff_freq * hazard[0],
-                                      Q=q_factor * hazard[1])
+                return lowpass_biquad(x, sample_rate=self._sr, cutoff_freq=cutoff_freq * rand_factors[0],
+                                      Q=q_factor * rand_factors[1])
         else:
             def lp(x):
                 return lowpass_biquad(x, sample_rate=self._sr, cutoff_freq=cutoff_freq, Q=q_factor)
