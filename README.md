@@ -60,14 +60,12 @@ In the above Table: format is median (interquartile range). Significantly best v
 ## Cite our work
 
 ```
-@article{hauret2023eben,
-        title={EBEN: Extreme bandwidth extension network applied to
-                speech signals captured with noise-resilient body-conduction microphones},
-        author={Hauret, Julien and Joubaud, Thomas and Zimpfer,
-               Véronique and Bavu, Eric},
-        journal={ICASSP 2023},
-        doi = {10.48550/ARXIV.2210.14090},
-        year = {2022},
-        url = {https://arxiv.org/abs/2210.14090},
-        copyright = {MIT License}}
+@inproceedings{hauret2023eben,
+  title={EBEN: Extreme bandwidth extension network applied to speech signals captured with noise-resilient body-conduction microphones},
+  author={Hauret, Julien and Joubaud, Thomas and Zimpfer, V{\'e}ronique and Bavu, {\'E}ric},
+  booktitle={ICASSP 2023-2023 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  pages={1--5},
+  year={2023},
+  organization={IEEE}
+}
 ```
