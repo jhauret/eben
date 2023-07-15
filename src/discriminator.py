@@ -1,5 +1,4 @@
-
-""" EBEN discriminator and sub blocks definition in Pytorch"""
+""" EBEN discriminators and sub blocks definition in Pytorch"""
 
 import torch
 from torch import nn
@@ -7,21 +6,38 @@ from torch import nn
 
 class DiscriminatorEBENMultiScales(nn.Module):
     """
-    EBEN overall Multiscales Discriminator: 3 bands discriminators + 1 melgan
+    Multi-scales discriminators of composed of 3 scales pqmf discriminators refining q bands and one 1 full scale Melgan
+
+    Args:
+        q: The number of PMQF bands sent to the discriminators to be refined
     """
-    def __init__(self):
+
+    def __init__(self, q: int = 3):
         super().__init__()
+
+        self.q = q
 
         # PQMF discriminators
         self.pqmf_discriminators = torch.nn.ModuleList()
+
+        # having multiple dilation helps to focus on multiscale structure of bands
         for dila in [1, 2, 3]:
-            self.pqmf_discriminators.append(DiscriminatorEBEN(dilation=dila))
+            self.pqmf_discriminators.append(DiscriminatorEBEN(dilation=dila, q=q))
 
         # MelGAN discriminator
         self.melgan_discriminator = DiscriminatorMelGAN()
 
     def forward(self, bands, audio):
+        """
+        Forward pass of the EBEN discriminators module.
 
+        Args:
+            bands (torch.Tensor): PQMF bands
+            audio (torch.Tensor): corresponding speech signal
+
+        Returns:
+            embeddings (List[List[torch.Tensor]]): a list of all embeddings layers of all discriminators
+        """
         embeddings = []
 
         for dis in self.pqmf_discriminators:
@@ -36,46 +52,49 @@ class DiscriminatorEBEN(nn.Module):
     """
     EBEN PQMF-bands discriminator
     """
-    def __init__(self, dilation=1):
+
+    def __init__(self, dilation=1, q: int = 3):
         super().__init__()
 
         self.dilation = dilation
 
+        assert q in [1, 2, 3, 5, 6, 10, 15]
+
         self.discriminator = nn.ModuleList([
             nn.Sequential(
                 nn.ReflectionPad1d(1),
-                normalized_conv1d(3, 30, kernel_size=(3,), stride=(1,), padding=(1,),
-                                  dilation=self.dilation, groups=3),
+                normalized_conv1d(q, 30, kernel_size=(3,), stride=(1,), padding=(1,),
+                                  dilation=self.dilation, groups=q),
                 nn.LeakyReLU(0.2, inplace=True),
             ),
             nn.Sequential(
                 normalized_conv1d(30, 60, kernel_size=(7,), stride=(2,), padding=(3,),
-                                  dilation=self.dilation, groups=3),
+                                  dilation=self.dilation, groups=q),
                 nn.LeakyReLU(0.2, inplace=True),
             ),
             nn.Sequential(
                 normalized_conv1d(60, 120, kernel_size=(7,), stride=(2,), padding=(3,),
-                                  dilation=self.dilation, groups=3),
+                                  dilation=self.dilation, groups=q),
                 nn.LeakyReLU(0.2, inplace=True),
             ),
             nn.Sequential(
                 normalized_conv1d(120, 240, kernel_size=(7,), stride=(2,), padding=(3,),
-                                  dilation=self.dilation, groups=3),
+                                  dilation=self.dilation, groups=q),
                 nn.LeakyReLU(0.2, inplace=True),
             ),
             nn.Sequential(
                 normalized_conv1d(240, 480, kernel_size=(7,), stride=(2,), padding=(3,),
-                                  dilation=self.dilation, groups=3),
+                                  dilation=self.dilation, groups=q),
                 nn.LeakyReLU(0.2, inplace=True),
             ),
             nn.Sequential(
                 normalized_conv1d(480, 960, kernel_size=(7,), stride=(2,), padding=(3,),
-                                  dilation=self.dilation, groups=3),
+                                  dilation=self.dilation, groups=q),
                 nn.LeakyReLU(0.2, inplace=True),
             ),
             nn.Sequential(
                 normalized_conv1d(960, 960, kernel_size=(5,), stride=(1,), padding=(2,),
-                                  dilation=self.dilation, groups=3),
+                                  dilation=self.dilation, groups=q),
                 nn.LeakyReLU(0.2, inplace=True),
             ),
             normalized_conv1d(960, 1, kernel_size=(3,), stride=(1,), padding=(1,), groups=1),
@@ -93,9 +112,9 @@ class DiscriminatorMelGAN(nn.Module):
     MelGAN Discriminator
      inspired from https://github.com/seungwonpark/melgan/blob/master/model/discriminator.py
     """
+
     def __init__(self):
         super().__init__()
-
 
         self.discriminator = nn.ModuleList([
             nn.Sequential(
@@ -143,7 +162,6 @@ def normalized_conv1d(*args, **kwargs):
 
 
 if __name__ == '__main__':
-
     # Instantiate nn.modules
     dis_bands = DiscriminatorEBEN()
     dis_melgan = DiscriminatorMelGAN()
@@ -163,5 +181,5 @@ if __name__ == '__main__':
     melgan_params = sum(p.numel() for p in dis_melgan.parameters())
     ms_params = sum(p.numel() for p in dis_ms.parameters())
     print(f"DiscriminatorEBEN has {bands_params * 1e-6:.2f} M parameters")
-    print(f"DiscriminatorMelGAN has {melgan_params*1e-6:.2f} M parameters")
-    print(f"DiscriminatorEBENMultiScales has {ms_params*1e-6:.2f} M parameters")
+    print(f"DiscriminatorMelGAN has {melgan_params * 1e-6:.2f} M parameters")
+    print(f"DiscriminatorEBENMultiScales has {ms_params * 1e-6:.2f} M parameters")

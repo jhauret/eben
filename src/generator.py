@@ -1,4 +1,3 @@
-
 """ EBEN generator and sub blocks definition in Pytorch"""
 
 import torch
@@ -8,22 +7,24 @@ from src.pqmf import PseudoQMFBanks
 
 class GeneratorEBEN(nn.Module):
 
-    def __init__(self, bands_nbr: int, pqmf_ks: int):
+    def __init__(self, m: int, n: int, p: int = 1):
         """
         Generator of EBEN
 
-        bands_nbr: number of pqmf bands
-        pqmf_ks: kernel size of pqmf
+        Args:
+            m: The number of PQMF bands, which is also the decimation factor of the waveform after the analysis step
+            n: The kernel size of PQMF
+            p: The number of informative PMQF bands sent to the generator
         """
         super().__init__()
 
-        self.pqmf_ks = pqmf_ks
+        self.p = p
+        self.pqmf = PseudoQMFBanks(decimation=m, kernel_size=n)
+
+        # multiple is the product of encoder_blocks strides and PQMF decimation
+        self.multiple = 2 * 4 * 8 * m
 
         self.nl = nn.LeakyReLU(negative_slope=0.01)
-
-        self.pqmf = PseudoQMFBanks(decimation=bands_nbr, kernel_size=pqmf_ks)
-
-        self.multiple = 2 * 4 * 8 * 4  # strides=2*4*8 * bands_nbr=4
 
         self.first_conv = nn.Conv1d(in_channels=1, out_channels=32, kernel_size=3,
                                     padding='same', bias=False, padding_mode='reflect')
@@ -53,16 +54,21 @@ class GeneratorEBEN(nn.Module):
 
     def forward(self, cut_audio):
         """
-        Forward pass of generator.
+        Forward pass of the EBEN generator module.
+
         Args:
-            cut_audio: in-ear speech signal
+            cut_audio (torch.Tensor): in-ear speech signal
+
+        Returns:
+            enhanced_speech (torch.Tensor): The enhanced signal.
+            enhanced_speech_decomposed (torch.Tensor): The enhanced PQMF bands before the synthesis stage
         """
 
-        # PQMF analysis, for first band only
-        first_band = self.pqmf(cut_audio, "analysis", bands=1)
+        # PQMF analysis, for P first bands only
+        first_bands = self.pqmf(cut_audio, "analysis", bands=self.p)
 
         # First conv
-        x = self.first_conv(first_band)
+        x = self.first_conv(first_bands)
 
         # Encoder forward
         x1 = self.encoder_blocks[0](self.nl(x))
@@ -81,20 +87,20 @@ class GeneratorEBEN(nn.Module):
         x = self.last_conv(x)
 
         # Recompose PQMF bands ( + avoiding any inplace operation for backprop )
-        b, c, t = first_band.shape  # (batch_size, channels, time_len)
-        fill_up_tensor = torch.zeros((b, 3, t), requires_grad=False).type_as(first_band)
-        cat_tensor = torch.cat(tensors=(first_band, fill_up_tensor), dim=1)
-        speech_decomposed_processed = torch.tanh(x + cat_tensor)
-        enhanced_speech = torch.sum(self.pqmf(speech_decomposed_processed, "synthesis"), 1,
-                                    keepdim=True)
+        b, c, t = first_bands.shape  # (batch_size, channels, time_len)
+        fill_up_tensor = torch.zeros((b, self.pqmf.decimation - self.p, t),
+                                     requires_grad=False).type_as(first_bands)
+        cat_tensor = torch.cat(tensors=(first_bands, fill_up_tensor), dim=1)
+        enhanced_speech_decomposed = torch.tanh(x + cat_tensor)
+        enhanced_speech = torch.sum(self.pqmf(enhanced_speech_decomposed, "synthesis"), 1, keepdim=True)
 
-        return enhanced_speech, speech_decomposed_processed
+        return enhanced_speech, enhanced_speech_decomposed
 
     def cut_tensor(self, tensor):
         """ This function is used to make tensor's dim 2 len divisible by multiple """
 
         old_len = tensor.shape[2]
-        new_len = old_len - (old_len + self.pqmf_ks) % self.multiple
+        new_len = old_len - (old_len + self.pqmf.kernel_size) % self.multiple
         tensor = torch.narrow(tensor, 2, 0, new_len)
 
         return tensor
@@ -104,6 +110,7 @@ class DecBlock(nn.Module):
     """
     Decoder Block Module
     """
+
     def __init__(self, out_channels, stride, nl, bias=False):
         super().__init__()
 
@@ -130,6 +137,7 @@ class EncBlock(nn.Module):
     """
     Encoder Block Module
     """
+
     def __init__(self, out_channels, stride, nl, bias=False):
         super().__init__()
 
@@ -153,13 +161,14 @@ class ResidualUnit(nn.Module):
     """
     Residual Unit Module
     """
+
     def __init__(self, channels, nl, dilation, bias=False):
         super().__init__()
 
         self.dilated_conv = normalized_conv1d(in_channels=channels, out_channels=channels,
-                                                    kernel_size=3,
-                                                    dilation=dilation, padding='same', bias=bias,
-                                                    padding_mode='reflect')
+                                              kernel_size=3,
+                                              dilation=dilation, padding='same', bias=bias,
+                                              padding_mode='reflect')
         self.pointwise_conv = normalized_conv1d(in_channels=channels, out_channels=channels,
                                                 kernel_size=1,
                                                 padding='same', bias=bias, padding_mode='reflect')
@@ -179,9 +188,8 @@ def normalized_conv_trans1d(*args, **kwargs):
 
 
 if __name__ == '__main__':
-
     # Instantiate nn.module
-    generator = GeneratorEBEN(bands_nbr=4, pqmf_ks=32)
+    generator = GeneratorEBEN(m=4, n=32, p=1)
 
     # Instantiate tensor with shape: (batch_size, channel, time_len)
     corrupted_signal = torch.randn((5, 1, 60000))
@@ -189,8 +197,8 @@ if __name__ == '__main__':
     corrupted_signal = generator.cut_tensor(corrupted_signal)
 
     # Test forward of model
-    enhanced_signal, enhanced_signal_decomposed= generator(corrupted_signal)
+    enhanced_signal, enhanced_signal_decomposed = generator(corrupted_signal)
 
     # Number of parameters
     pytorch_total_params = sum(p.numel() for p in generator.parameters())
-    print(f"pytorch_total_params: {pytorch_total_params*1e-6:.2f} Millions")
+    print(f"pytorch_total_params: {pytorch_total_params * 1e-6:.2f} Millions")
