@@ -1,5 +1,14 @@
+"""
+PseudoQMFBanks class
 
-""" PseudoQMFBanks class"""
+PQMF formalism is introduced in:
+"Nguyen, T. Q. (1994). Near-perfect-reconstruction pseudo-QMF banks.
+ IEEE Transactions on signal processing, 42(1), 65-76."
+
+The design methodology is introduced in:
+"Lin, Y. P., & Vaidyanathan, P. P. (1998). A Kaiser window approach for the design of
+prototype filters of cosine modulated filterbanks. IEEE signal processing letters, 5(6), 132-134."
+"""
 
 import torch
 from torch import pi, nn
@@ -11,9 +20,23 @@ class PseudoQMFBanks(nn.Module):
         * analysis from temporal signal
         * synthesis from decomposed representation
 
-    PQMF weights are initialized thanks to initialize_pqmf_bank
+    The PQMF weights are initialized using the `initialize_pqmf_bank` method.
     """
     def __init__(self, decimation: int = 32, kernel_size: int = 1024, beta: int = 9):
+        """
+        Initialize the PseudoQMFBanks module.
+
+        Args:
+            decimation (int): The decimation factor, noted "M" in the article.
+            kernel_size (int): The length of the PQMF kernel. Convolutions with longer kernels are slower to compute but
+                                allow for a lower reconstruction error and better band separation. Minimal band overlap
+                                implies a very low reconstruction error, but it is not equivalent. Indeed, phase
+                                opposition phenomena between the bands also contribute to eliminating redundant content
+                                in the synthesis phase. In practice, a kernel_size of 8 * decimation is sufficient for
+                                 pseudo-perfect reconstruction, and a kernel_size of 128 * decimation is sufficient for
+                                 pseudo-perfect separation of frequency content between bands.
+            beta (int): The beta value used in the Kaiser window function.
+        """
         super().__init__()
         assert kernel_size % (4 * decimation) == 0
 
@@ -28,6 +51,16 @@ class PseudoQMFBanks(nn.Module):
         self.synthesis_weights = nn.parameter.Parameter(data=synthesis_weights, requires_grad=False)
 
     def compute_prototype(self, cutoff_ratio):
+        """
+        Compute the PQMF prototype filter.
+
+        Args:
+            cutoff_ratio (float): The cutoff ratio of the Kaiser window.
+
+        Returns:
+            torch.Tensor: The computed prototype filter.
+        """
+
         kaiser = torch.ones(1, 1, self._kernel_size, dtype=torch.double)
         kaiser[0, 0, :] = torch.kaiser_window(self._kernel_size, periodic=False, beta=self._beta,
                                               requires_grad=True)
@@ -42,7 +75,18 @@ class PseudoQMFBanks(nn.Module):
         return prototype
 
     def initialize_cutoff_ratio(self):
+        """
+        Compute the optimal cutoff ratio used in the Kaiser window to make the prototype filter:
+         - close to zero out of its passband to minimize aliasing
+         - close to one within its passband to minimize distortion
+
+        Returns:
+            float: The optimal cutoff ratio.
+        """
         def objective(cutoff):
+            """
+            Compute Equation (5) of the Y.Lin article. The lower, the better.
+            """
             prototype = self.compute_prototype(cutoff)
             proto_padded = nn.functional.pad(prototype,
                                              pad=(self._kernel_size // 2, self._kernel_size // 2),
@@ -64,6 +108,7 @@ class PseudoQMFBanks(nn.Module):
 
         optimizer = torch.optim.LBFGS([cutoff_ratio_lbfgs], line_search_fn="strong_wolfe")
 
+        # Perform 5 optimization steps to find the optimal cutoff_ratio
         for _ in range(5):
             optimizer.zero_grad()
             criterion = objective(cutoff_ratio_lbfgs)
@@ -73,6 +118,12 @@ class PseudoQMFBanks(nn.Module):
         return cutoff_ratio_lbfgs.item()
 
     def initialize_pqmf_bank(self):
+        """
+        Initialize the PQMF analysis and synthesis weights according to Equation (1) of the T.Q Nguyen article.
+
+        Returns:
+            Tuple[torch.Tensor, torch.Tensor]: Analysis and synthesis weights.
+        """
         prototype = self.compute_prototype(self._cutoff_ratio).squeeze()
         analysis_weights = torch.zeros(self._decimation, 1, self._kernel_size)
         synthesis_weights = torch.zeros(self._decimation, 1, self._kernel_size)
@@ -90,29 +141,50 @@ class PseudoQMFBanks(nn.Module):
         return analysis_weights, synthesis_weights
 
     def forward(self, signal, stage, bands='all'):
+        """
+        Forward pass of the PQMF module.
+
+        Args:
+            signal (torch.Tensor): The input signal.
+            stage (str): The stage of processing, either "analysis" or "synthesis".
+            bands (str or int): The number of bands to compute starting from first ones.
+                                'all' for all bands, or an integer value.
+
+        Returns:
+            torch.Tensor: The output signal after analysis or synthesis.
+        """
+
         if stage == "analysis":
             if bands == 'all':
-                # compute all bands
+                # Compute all bands
                 return torch.nn.functional.conv1d(signal, self.analysis_weights, bias=None,
                                                   stride=(self._decimation,),
                                                   padding=(self._kernel_size - 1,))
             else:
-                # compute only the first bands
+                # Compute only the first bands
                 return torch.nn.functional.conv1d(signal, self.analysis_weights[:bands, :, :],
                                                   bias=None, stride=(self._decimation,),
                                                   padding=(self._kernel_size - 1,))
         elif stage == "synthesis":
-            # number of channels is equal to decimation factor
+            # Number of channels is equal to the decimation factor
             return torch.nn.functional.conv_transpose1d(signal, self.synthesis_weights, bias=None,
                                                         stride=(self._decimation,),
                                                         output_padding=self._decimation - 2,
                                                         groups=self._decimation,
                                                         padding=(self._kernel_size - 1,))
         else:
-            raise ValueError(f"stage: {stage} is not recognized by {self._get_name()}")
+            raise ValueError(f"Stage: {stage} is not recognized.")
 
     def cut_tensor(self, tensor):
-        """ This function is used to make tensor's dim 2 len divisible by _decimation """
+        """
+        Cut the tensor's dimension 2 length to be divisible by _decimation.
+
+        Args:
+            tensor (torch.Tensor): The input tensor.
+
+        Returns:
+            torch.Tensor: The tensor with dimension 2 length divisible by _decimation.
+        """
 
         old_len = tensor.shape[2]
         new_len = old_len - (old_len + self._kernel_size) % self._decimation
