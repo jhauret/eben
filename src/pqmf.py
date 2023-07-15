@@ -50,6 +50,14 @@ class PseudoQMFBanks(nn.Module):
         self.analysis_weights = nn.parameter.Parameter(data=analysis_weights, requires_grad=False)
         self.synthesis_weights = nn.parameter.Parameter(data=synthesis_weights, requires_grad=False)
 
+    @property
+    def kernel_size(self):
+        return self._kernel_size
+
+    @property
+    def decimation(self):
+        return self._decimation
+
     def compute_prototype(self, cutoff_ratio):
         """
         Compute the PQMF prototype filter.
