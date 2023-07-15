@@ -1,14 +1,14 @@
-
 """ Module to load Librispeech data and apply degradation """
 
-from pathlib import Path
 import os
+from pathlib import Path
 from typing import Tuple
+
 import torchaudio
-from torch import Tensor
-from torch.utils.data import Dataset, DataLoader
 from pytorch_lightning import LightningDataModule
 from src.temporal_transforms import TemporalTransforms
+from torch import Tensor
+from torch.utils.data import DataLoader, Dataset
 
 
 class CustomLibriSpeechDM(LightningDataModule):
@@ -55,9 +55,20 @@ class CustomLibriSpeechDM(LightningDataModule):
 
     """
 
-    def __init__(self, path_to_dataset, sr_standard, len_seconds_train, bs_train,
-                 len_seconds_val=6, bs_val=8, num_workers=4, separator='_',
-                 train_folder='train/audio', val_folder='dev/audio', test_folder='test/audio', ):
+    def __init__(
+        self,
+        path_to_dataset,
+        sr_standard,
+        len_seconds_train,
+        bs_train,
+        len_seconds_val=6,
+        bs_val=8,
+        num_workers=4,
+        separator="_",
+        train_folder="train/audio",
+        val_folder="dev/audio",
+        test_folder="test/audio",
+    ):
         super().__init__()
 
         self.path_to_dataset = path_to_dataset
@@ -77,21 +88,30 @@ class CustomLibriSpeechDM(LightningDataModule):
         Things to do on every accelerator in distributed mode
         """
 
-        self.train_set = CustomLibriSpeechDS(path=self.path_to_dataset, folder=self._train_folder,
-                                             deterministic=True,
-                                             sr_standard=self.sr_standard,
-                                             len_seconds=self.len_seconds_train,
-                                             separator=self._separator)
-        self.val_set = CustomLibriSpeechDS(path=self.path_to_dataset, folder=self._val_folder,
-                                           deterministic=True,
-                                           sr_standard=self.sr_standard,
-                                           len_seconds=self.len_seconds_val,
-                                           separator=self._separator)
-        self.test_set = CustomLibriSpeechDS(path=self.path_to_dataset, folder=self._test_folder,
-                                            deterministic=True,
-                                            sr_standard=self.sr_standard,
-                                            len_seconds=self.len_seconds_val,
-                                            separator=self._separator)
+        self.train_set = CustomLibriSpeechDS(
+            path=self.path_to_dataset,
+            folder=self._train_folder,
+            deterministic=True,
+            sr_standard=self.sr_standard,
+            len_seconds=self.len_seconds_train,
+            separator=self._separator,
+        )
+        self.val_set = CustomLibriSpeechDS(
+            path=self.path_to_dataset,
+            folder=self._val_folder,
+            deterministic=True,
+            sr_standard=self.sr_standard,
+            len_seconds=self.len_seconds_val,
+            separator=self._separator,
+        )
+        self.test_set = CustomLibriSpeechDS(
+            path=self.path_to_dataset,
+            folder=self._test_folder,
+            deterministic=True,
+            sr_standard=self.sr_standard,
+            len_seconds=self.len_seconds_val,
+            separator=self._separator,
+        )
 
     def train_dataloader(self):
         """
@@ -103,7 +123,8 @@ class CustomLibriSpeechDM(LightningDataModule):
             shuffle=True,
             num_workers=self.num_workers,
             pin_memory=True,
-            drop_last=True)
+            drop_last=True,
+        )
 
     def val_dataloader(self):
         """
@@ -114,7 +135,8 @@ class CustomLibriSpeechDM(LightningDataModule):
             batch_size=self.bs_val,
             shuffle=False,
             num_workers=self.num_workers,
-            pin_memory=True)
+            pin_memory=True,
+        )
 
     def test_dataloader(self):
         """
@@ -124,17 +146,25 @@ class CustomLibriSpeechDM(LightningDataModule):
             self.test_set,
             batch_size=self.bs_val,
             shuffle=False,
-            num_workers=self.num_workers)
+            num_workers=self.num_workers,
+        )
 
 
 class CustomLibriSpeechDS(Dataset):
 
-    """  Create a Dataset for LibriSpeech  """
+    """Create a Dataset for LibriSpeech"""
 
     _ext_audio = ".flac"
 
-    def __init__(self, path, folder, sr_standard, separator, len_seconds: float = 6.0,
-                 deterministic: bool = False) -> None:
+    def __init__(
+        self,
+        path,
+        folder,
+        sr_standard,
+        separator,
+        len_seconds: float = 6.0,
+        deterministic: bool = False,
+    ) -> None:
         self.len_seconds = len_seconds
         self.sr_standard = sr_standard
         self.determinist = deterministic
@@ -143,7 +173,8 @@ class CustomLibriSpeechDS(Dataset):
         self._folder = folder
         self._full_path = os.path.join(self._path, self._folder)
         self._walker = sorted(
-            str(p.stem) for p in Path(self._full_path).glob('*/*/*' + self._ext_audio))
+            str(p.stem) for p in Path(self._full_path).glob("*/*/*" + self._ext_audio)
+        )
 
     def __getitem__(self, n: int) -> Tuple[Tensor, Tensor]:
         """Load the n-th sample from the dataset and apply degradation
@@ -181,14 +212,20 @@ class CustomLibriSpeechDS(Dataset):
     def __len__(self) -> int:
         return len(self._walker)
 
-    def load_librispeech_item(self, fileid: str, path: str, ext_audio: str) -> Tuple[Tensor, int]:
+    def load_librispeech_item(
+        self, fileid: str, path: str, ext_audio: str
+    ) -> Tuple[Tensor, int]:
         speaker_id, chapter_id, utterance_id = fileid.split(self._separator)
 
-        fileid_audio = speaker_id + self._separator + chapter_id + self._separator + utterance_id
+        fileid_audio = (
+            speaker_id + self._separator + chapter_id + self._separator + utterance_id
+        )
         file_audio = fileid_audio + ext_audio
         file_audio = os.path.join(path, speaker_id, chapter_id, file_audio)
 
         # Load audio
-        waveform, sample_rate = torchaudio.load(file_audio, normalize=False)  # normalize
+        waveform, sample_rate = torchaudio.load(
+            file_audio, normalize=False
+        )  # normalize
 
         return waveform, sample_rate

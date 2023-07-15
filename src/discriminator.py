@@ -60,45 +60,98 @@ class DiscriminatorEBEN(nn.Module):
 
         assert q in [1, 2, 3, 5, 6, 10, 15]
 
-        self.discriminator = nn.ModuleList([
-            nn.Sequential(
-                nn.ReflectionPad1d(1),
-                normalized_conv1d(q, 30, kernel_size=(3,), stride=(1,), padding=(1,),
-                                  dilation=self.dilation, groups=q),
-                nn.LeakyReLU(0.2, inplace=True),
-            ),
-            nn.Sequential(
-                normalized_conv1d(30, 60, kernel_size=(7,), stride=(2,), padding=(3,),
-                                  dilation=self.dilation, groups=q),
-                nn.LeakyReLU(0.2, inplace=True),
-            ),
-            nn.Sequential(
-                normalized_conv1d(60, 120, kernel_size=(7,), stride=(2,), padding=(3,),
-                                  dilation=self.dilation, groups=q),
-                nn.LeakyReLU(0.2, inplace=True),
-            ),
-            nn.Sequential(
-                normalized_conv1d(120, 240, kernel_size=(7,), stride=(2,), padding=(3,),
-                                  dilation=self.dilation, groups=q),
-                nn.LeakyReLU(0.2, inplace=True),
-            ),
-            nn.Sequential(
-                normalized_conv1d(240, 480, kernel_size=(7,), stride=(2,), padding=(3,),
-                                  dilation=self.dilation, groups=q),
-                nn.LeakyReLU(0.2, inplace=True),
-            ),
-            nn.Sequential(
-                normalized_conv1d(480, 960, kernel_size=(7,), stride=(2,), padding=(3,),
-                                  dilation=self.dilation, groups=q),
-                nn.LeakyReLU(0.2, inplace=True),
-            ),
-            nn.Sequential(
-                normalized_conv1d(960, 960, kernel_size=(5,), stride=(1,), padding=(2,),
-                                  dilation=self.dilation, groups=q),
-                nn.LeakyReLU(0.2, inplace=True),
-            ),
-            normalized_conv1d(960, 1, kernel_size=(3,), stride=(1,), padding=(1,), groups=1),
-        ])
+        self.discriminator = nn.ModuleList(
+            [
+                nn.Sequential(
+                    nn.ReflectionPad1d(1),
+                    normalized_conv1d(
+                        q,
+                        30,
+                        kernel_size=(3,),
+                        stride=(1,),
+                        padding=(1,),
+                        dilation=self.dilation,
+                        groups=q,
+                    ),
+                    nn.LeakyReLU(0.2, inplace=True),
+                ),
+                nn.Sequential(
+                    normalized_conv1d(
+                        30,
+                        60,
+                        kernel_size=(7,),
+                        stride=(2,),
+                        padding=(3,),
+                        dilation=self.dilation,
+                        groups=q,
+                    ),
+                    nn.LeakyReLU(0.2, inplace=True),
+                ),
+                nn.Sequential(
+                    normalized_conv1d(
+                        60,
+                        120,
+                        kernel_size=(7,),
+                        stride=(2,),
+                        padding=(3,),
+                        dilation=self.dilation,
+                        groups=q,
+                    ),
+                    nn.LeakyReLU(0.2, inplace=True),
+                ),
+                nn.Sequential(
+                    normalized_conv1d(
+                        120,
+                        240,
+                        kernel_size=(7,),
+                        stride=(2,),
+                        padding=(3,),
+                        dilation=self.dilation,
+                        groups=q,
+                    ),
+                    nn.LeakyReLU(0.2, inplace=True),
+                ),
+                nn.Sequential(
+                    normalized_conv1d(
+                        240,
+                        480,
+                        kernel_size=(7,),
+                        stride=(2,),
+                        padding=(3,),
+                        dilation=self.dilation,
+                        groups=q,
+                    ),
+                    nn.LeakyReLU(0.2, inplace=True),
+                ),
+                nn.Sequential(
+                    normalized_conv1d(
+                        480,
+                        960,
+                        kernel_size=(7,),
+                        stride=(2,),
+                        padding=(3,),
+                        dilation=self.dilation,
+                        groups=q,
+                    ),
+                    nn.LeakyReLU(0.2, inplace=True),
+                ),
+                nn.Sequential(
+                    normalized_conv1d(
+                        960,
+                        960,
+                        kernel_size=(5,),
+                        stride=(1,),
+                        padding=(2,),
+                        dilation=self.dilation,
+                        groups=q,
+                    ),
+                    nn.LeakyReLU(0.2, inplace=True),
+                ),
+                normalized_conv1d(
+                    960, 1, kernel_size=(3,), stride=(1,), padding=(1,), groups=1
+                ),
+            ]
+        )
 
     def forward(self, bands):
         embeddings = [bands]
@@ -116,39 +169,74 @@ class DiscriminatorMelGAN(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.discriminator = nn.ModuleList([
-            nn.Sequential(
-                nn.ReflectionPad1d(7),
-                normalized_conv1d(in_channels=1, out_channels=16, kernel_size=(15,), stride=(1,)),
-                nn.LeakyReLU(0.2, inplace=True),
-            ),
-            nn.Sequential(
-                normalized_conv1d(in_channels=16, out_channels=64, kernel_size=(41,), stride=(4,),
-                                  padding=20, groups=4),
-                nn.LeakyReLU(0.2, inplace=True),
-            ),
-            nn.Sequential(
-                normalized_conv1d(in_channels=64, out_channels=256, kernel_size=(41,), stride=(4,),
-                                  padding=20, groups=4),
-                nn.LeakyReLU(0.2, inplace=True),
-            ),
-            nn.Sequential(
-                normalized_conv1d(in_channels=256, out_channels=1024, kernel_size=(41,),
-                                  stride=(4,), padding=20, groups=4),
-                nn.LeakyReLU(0.2, inplace=True),
-            ),
-            nn.Sequential(
-                normalized_conv1d(in_channels=1024, out_channels=1024, kernel_size=(41,),
-                                  stride=(4,), padding=20, groups=4),
-                nn.LeakyReLU(0.2, inplace=True),
-            ),
-            nn.Sequential(
-                normalized_conv1d(in_channels=1024, out_channels=1024, kernel_size=(5,),
-                                  stride=(1,), padding=2),
-                nn.LeakyReLU(0.2, inplace=True),
-            ),
-            normalized_conv1d(in_channels=1024, out_channels=1, kernel_size=3, stride=1, padding=1)
-        ])
+        self.discriminator = nn.ModuleList(
+            [
+                nn.Sequential(
+                    nn.ReflectionPad1d(7),
+                    normalized_conv1d(
+                        in_channels=1, out_channels=16, kernel_size=(15,), stride=(1,)
+                    ),
+                    nn.LeakyReLU(0.2, inplace=True),
+                ),
+                nn.Sequential(
+                    normalized_conv1d(
+                        in_channels=16,
+                        out_channels=64,
+                        kernel_size=(41,),
+                        stride=(4,),
+                        padding=20,
+                        groups=4,
+                    ),
+                    nn.LeakyReLU(0.2, inplace=True),
+                ),
+                nn.Sequential(
+                    normalized_conv1d(
+                        in_channels=64,
+                        out_channels=256,
+                        kernel_size=(41,),
+                        stride=(4,),
+                        padding=20,
+                        groups=4,
+                    ),
+                    nn.LeakyReLU(0.2, inplace=True),
+                ),
+                nn.Sequential(
+                    normalized_conv1d(
+                        in_channels=256,
+                        out_channels=1024,
+                        kernel_size=(41,),
+                        stride=(4,),
+                        padding=20,
+                        groups=4,
+                    ),
+                    nn.LeakyReLU(0.2, inplace=True),
+                ),
+                nn.Sequential(
+                    normalized_conv1d(
+                        in_channels=1024,
+                        out_channels=1024,
+                        kernel_size=(41,),
+                        stride=(4,),
+                        padding=20,
+                        groups=4,
+                    ),
+                    nn.LeakyReLU(0.2, inplace=True),
+                ),
+                nn.Sequential(
+                    normalized_conv1d(
+                        in_channels=1024,
+                        out_channels=1024,
+                        kernel_size=(5,),
+                        stride=(1,),
+                        padding=2,
+                    ),
+                    nn.LeakyReLU(0.2, inplace=True),
+                ),
+                normalized_conv1d(
+                    in_channels=1024, out_channels=1, kernel_size=3, stride=1, padding=1
+                ),
+            ]
+        )
 
     def forward(self, audio):
         embeddings = [audio]
@@ -161,7 +249,7 @@ def normalized_conv1d(*args, **kwargs):
     return nn.utils.weight_norm(nn.Conv1d(*args, **kwargs))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Instantiate nn.modules
     dis_bands = DiscriminatorEBEN()
     dis_melgan = DiscriminatorMelGAN()

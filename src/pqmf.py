@@ -11,7 +11,7 @@ prototype filters of cosine modulated filterbanks. IEEE signal processing letter
 """
 
 import torch
-from torch import pi, nn
+from torch import nn, pi
 
 
 class PseudoQMFBanks(nn.Module):
@@ -22,6 +22,7 @@ class PseudoQMFBanks(nn.Module):
 
     The PQMF weights are initialized using the `initialize_pqmf_bank` method.
     """
+
     def __init__(self, decimation: int = 32, kernel_size: int = 1024, beta: int = 9):
         """
         Initialize the PseudoQMFBanks module.
@@ -47,8 +48,12 @@ class PseudoQMFBanks(nn.Module):
         # real initializations are found below
         self._cutoff_ratio = self.initialize_cutoff_ratio()
         analysis_weights, synthesis_weights = self.initialize_pqmf_bank()
-        self.analysis_weights = nn.parameter.Parameter(data=analysis_weights, requires_grad=False)
-        self.synthesis_weights = nn.parameter.Parameter(data=synthesis_weights, requires_grad=False)
+        self.analysis_weights = nn.parameter.Parameter(
+            data=analysis_weights, requires_grad=False
+        )
+        self.synthesis_weights = nn.parameter.Parameter(
+            data=synthesis_weights, requires_grad=False
+        )
 
     @property
     def kernel_size(self):
@@ -70,12 +75,15 @@ class PseudoQMFBanks(nn.Module):
         """
 
         kaiser = torch.ones(1, 1, self._kernel_size, dtype=torch.double)
-        kaiser[0, 0, :] = torch.kaiser_window(self._kernel_size, periodic=False, beta=self._beta,
-                                              requires_grad=True)
+        kaiser[0, 0, :] = torch.kaiser_window(
+            self._kernel_size, periodic=False, beta=self._beta, requires_grad=True
+        )
 
         sinc = torch.ones(1, 1, self._kernel_size)
         sinc[0, 0, :] = cutoff_ratio * torch.special.sinc(
-            cutoff_ratio * (torch.arange(self._kernel_size) - (self._kernel_size - 1) / 2))
+            cutoff_ratio
+            * (torch.arange(self._kernel_size) - (self._kernel_size - 1) / 2)
+        )
 
         prototype = torch.ones(1, 1, self._kernel_size)
         prototype[0, 0, :] = sinc * kaiser
@@ -91,17 +99,21 @@ class PseudoQMFBanks(nn.Module):
         Returns:
             float: The optimal cutoff ratio.
         """
+
         def objective(cutoff):
             """
             Compute Equation (5) of the Y.Lin article. The lower, the better.
             """
             prototype = self.compute_prototype(cutoff)
-            proto_padded = nn.functional.pad(prototype,
-                                             pad=(self._kernel_size // 2, self._kernel_size // 2),
-                                             mode='constant', value=0.0)
+            proto_padded = nn.functional.pad(
+                prototype,
+                pad=(self._kernel_size // 2, self._kernel_size // 2),
+                mode="constant",
+                value=0.0,
+            )
             autocorr_proto = nn.functional.conv1d(proto_padded, prototype)
             autocorr_proto[..., self._kernel_size // 2] = 0
-            autocorr_proto_2m = autocorr_proto[..., ::2 * self._decimation]
+            autocorr_proto_2m = autocorr_proto[..., :: 2 * self._decimation]
             phi_new = torch.max(torch.abs(autocorr_proto_2m))
 
             if abs(cutoff - 1 / (2 * self._decimation)) > 1 / (4 * self._decimation):
@@ -114,7 +126,9 @@ class PseudoQMFBanks(nn.Module):
         cutoff_ratio_lbfgs = torch.ones(1) / (2 * self._decimation)
         cutoff_ratio_lbfgs.requires_grad = True
 
-        optimizer = torch.optim.LBFGS([cutoff_ratio_lbfgs], line_search_fn="strong_wolfe")
+        optimizer = torch.optim.LBFGS(
+            [cutoff_ratio_lbfgs], line_search_fn="strong_wolfe"
+        )
 
         # Perform 5 optimization steps to find the optimal cutoff_ratio
         for _ in range(5):
@@ -136,19 +150,36 @@ class PseudoQMFBanks(nn.Module):
         analysis_weights = torch.zeros(self._decimation, 1, self._kernel_size)
         synthesis_weights = torch.zeros(self._decimation, 1, self._kernel_size)
         for pqmf_idx in range(self._decimation):
-            analysis_weights[pqmf_idx, 0, :] = 2 * torch.flip(prototype * torch.cos(
-                (2 * pqmf_idx + 1) * pi / 2 / self._decimation * (
-                        torch.arange(self._kernel_size) - (self._kernel_size - 1) / 2) + (
-                    -1) ** pqmf_idx * pi / 4), [0])
+            analysis_weights[pqmf_idx, 0, :] = 2 * torch.flip(
+                prototype
+                * torch.cos(
+                    (2 * pqmf_idx + 1)
+                    * pi
+                    / 2
+                    / self._decimation
+                    * (torch.arange(self._kernel_size) - (self._kernel_size - 1) / 2)
+                    + (-1) ** pqmf_idx * pi / 4
+                ),
+                [0],
+            )
 
-            synthesis_weights[pqmf_idx, 0, :] = self._decimation * 2 * prototype * torch.cos(
-                (2 * pqmf_idx + 1) * pi / 2 / self._decimation * (
-                        torch.arange(self._kernel_size) - (self._kernel_size - 1) / 2) - (
-                    -1) ** pqmf_idx * pi / 4)
+            synthesis_weights[pqmf_idx, 0, :] = (
+                self._decimation
+                * 2
+                * prototype
+                * torch.cos(
+                    (2 * pqmf_idx + 1)
+                    * pi
+                    / 2
+                    / self._decimation
+                    * (torch.arange(self._kernel_size) - (self._kernel_size - 1) / 2)
+                    - (-1) ** pqmf_idx * pi / 4
+                )
+            )
 
         return analysis_weights, synthesis_weights
 
-    def forward(self, signal, stage, bands='all'):
+    def forward(self, signal, stage, bands="all"):
         """
         Forward pass of the PQMF module.
 
@@ -163,23 +194,35 @@ class PseudoQMFBanks(nn.Module):
         """
 
         if stage == "analysis":
-            if bands == 'all':
+            if bands == "all":
                 # Compute all bands
-                return torch.nn.functional.conv1d(signal, self.analysis_weights, bias=None,
-                                                  stride=(self._decimation,),
-                                                  padding=(self._kernel_size - 1,))
+                return torch.nn.functional.conv1d(
+                    signal,
+                    self.analysis_weights,
+                    bias=None,
+                    stride=(self._decimation,),
+                    padding=(self._kernel_size - 1,),
+                )
             else:
                 # Compute only the first bands
-                return torch.nn.functional.conv1d(signal, self.analysis_weights[:bands, :, :],
-                                                  bias=None, stride=(self._decimation,),
-                                                  padding=(self._kernel_size - 1,))
+                return torch.nn.functional.conv1d(
+                    signal,
+                    self.analysis_weights[:bands, :, :],
+                    bias=None,
+                    stride=(self._decimation,),
+                    padding=(self._kernel_size - 1,),
+                )
         elif stage == "synthesis":
             # Number of channels is equal to the decimation factor
-            return torch.nn.functional.conv_transpose1d(signal, self.synthesis_weights, bias=None,
-                                                        stride=(self._decimation,),
-                                                        output_padding=self._decimation - 2,
-                                                        groups=self._decimation,
-                                                        padding=(self._kernel_size - 1,))
+            return torch.nn.functional.conv_transpose1d(
+                signal,
+                self.synthesis_weights,
+                bias=None,
+                stride=(self._decimation,),
+                output_padding=self._decimation - 2,
+                groups=self._decimation,
+                padding=(self._kernel_size - 1,),
+            )
         else:
             raise ValueError(f"Stage: {stage} is not recognized.")
 
@@ -201,8 +244,7 @@ class PseudoQMFBanks(nn.Module):
         return tensor
 
 
-if __name__ == '__main__':
-
+if __name__ == "__main__":
     # Instantiate nn.module
     pqmf = PseudoQMFBanks(decimation=4, kernel_size=32)
 
@@ -214,10 +256,19 @@ if __name__ == '__main__':
     audio_recomposed = torch.sum(pqmf(audio_decomposed, "synthesis"), 1, keepdim=True)
 
     # Statistics
-    print(f'Original signal length: {audio.shape[2]} with {audio.shape[1]} channel')
-    print(f'Decomposed signal length: {audio_decomposed.shape[2]} with {audio_decomposed.shape[1]} channels')
-    print(f'Recomposed signal length: {audio_recomposed.shape[2]} with {audio_recomposed.shape[1]} channel')
-    snr = 10 * torch.log10((audio_recomposed ** 2).mean() / ((audio - audio_recomposed) ** 2).mean()).item()
-    print(f'SNR of chirp_recomposed: {snr:.2f}dB')
+    print(f"Original signal length: {audio.shape[2]} with {audio.shape[1]} channel")
+    print(
+        f"Decomposed signal length: {audio_decomposed.shape[2]} with {audio_decomposed.shape[1]} channels"
+    )
+    print(
+        f"Recomposed signal length: {audio_recomposed.shape[2]} with {audio_recomposed.shape[1]} channel"
+    )
+    snr = (
+        10
+        * torch.log10(
+            (audio_recomposed**2).mean() / ((audio - audio_recomposed) ** 2).mean()
+        ).item()
+    )
+    print(f"SNR of chirp_recomposed: {snr:.2f}dB")
     pqmf_params = sum(p.numel() for p in pqmf.parameters())
     print(f"PQMF params: {pqmf_params}")

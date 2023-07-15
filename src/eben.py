@@ -1,8 +1,7 @@
-
 """ Definition of EBEN and its training pipeline with pytorch lightning paradigm"""
 
-import torch
 import pytorch_lightning as pl
+import torch
 
 
 class EBEN(pl.LightningModule):
@@ -10,7 +9,9 @@ class EBEN(pl.LightningModule):
     EBEN LightningModule
     """
 
-    def __init__(self, generator, discriminator=None, lr=None, betas=None, metrics=None):
+    def __init__(
+        self, generator, discriminator=None, lr=None, betas=None, metrics=None
+    ):
         super().__init__()
 
         self.sr = 16000
@@ -27,29 +28,36 @@ class EBEN(pl.LightningModule):
         self.metrics = metrics
 
     def training_step(self, batch, batch_idx, optimizer_idx=0):
-
         # batch is [audio_ref, audio_corrupted]
         cut_batch = [self.generator.cut_tensor(speech) for speech in batch]
 
         reference_speech, corrupted_speech = cut_batch
 
         enhanced_speech, decomposed_enhanced_speech = self.generator(corrupted_speech)
-        decomposed_reference_speech = self.generator.pqmf.forward(reference_speech, 'analysis')
-        enhanced_embeddings = self.discriminator(bands=decomposed_enhanced_speech[:, 1:, :],
-                                                 audio=enhanced_speech)
-        reference_embeddings = self.discriminator(bands=decomposed_reference_speech[:, 1:, :],
-                                                  audio=reference_speech)
+        decomposed_reference_speech = self.generator.pqmf.forward(
+            reference_speech, "analysis"
+        )
+        enhanced_embeddings = self.discriminator(
+            bands=decomposed_enhanced_speech[:, 1:, :], audio=enhanced_speech
+        )
+        reference_embeddings = self.discriminator(
+            bands=decomposed_reference_speech[:, 1:, :], audio=reference_speech
+        )
 
-        outs = {'reference': reference_speech, 'corrupted': corrupted_speech,
-                'enhanced': enhanced_speech}
+        outs = {
+            "reference": reference_speech,
+            "corrupted": corrupted_speech,
+            "enhanced": enhanced_speech,
+        }
 
         # train generator
         if optimizer_idx == 0:
-
             # ftr_loss
             ftr_loss = 0
             for scale in range(len(reference_embeddings)):  # across scales
-                for layer in range(1, len(reference_embeddings[scale]) - 1):  # across layers
+                for layer in range(
+                    1, len(reference_embeddings[scale]) - 1
+                ):  # across layers
                     a = reference_embeddings[scale][layer]
                     b = enhanced_embeddings[scale][layer]
                     ftr_loss += self.l1(a, b) / (len(reference_embeddings[scale]) - 2)
@@ -64,13 +72,12 @@ class EBEN(pl.LightningModule):
 
             gen_loss = adv_loss + 100 * ftr_loss
 
-            outs.update({'loss': gen_loss})
+            outs.update({"loss": gen_loss})
 
             return outs
 
         # train discriminator
         if optimizer_idx == 1:
-
             # valid_loss
             adv_loss_valid = 0
             for scale in range(len(reference_embeddings)):  # across embeddings
@@ -89,7 +96,7 @@ class EBEN(pl.LightningModule):
             dis_loss = adv_loss_valid + adv_loss_fake
 
             # total_loss = ∑ losses
-            outs.update({'loss': dis_loss})
+            outs.update({"loss": dis_loss})
 
         return outs
 
@@ -99,8 +106,11 @@ class EBEN(pl.LightningModule):
         reference_speech, corrupted_speech = cut_batch
         enhanced_speech, _ = self.generator(corrupted_speech)
 
-        outs = {'reference': reference_speech, 'corrupted': corrupted_speech,
-                'enhanced': enhanced_speech}
+        outs = {
+            "reference": reference_speech,
+            "corrupted": corrupted_speech,
+            "enhanced": enhanced_speech,
+        }
 
         return outs
 
@@ -110,24 +120,33 @@ class EBEN(pl.LightningModule):
         reference_speech, corrupted_speech = cut_batch
         enhanced_speech, _ = self.generator(corrupted_speech)
 
-        outs = {'reference': reference_speech, 'corrupted': corrupted_speech,
-                'enhanced': enhanced_speech}
+        outs = {
+            "reference": reference_speech,
+            "corrupted": corrupted_speech,
+            "enhanced": enhanced_speech,
+        }
 
         return outs
 
     def configure_optimizers(self):
-
         optimizers = [
-            torch.optim.Adam(params=self.generator.parameters(), lr=self.lr, betas=self.betas),
-            torch.optim.Adam(params=self.discriminator.parameters(), lr=self.lr, betas=self.betas)]
+            torch.optim.Adam(
+                params=self.generator.parameters(), lr=self.lr, betas=self.betas
+            ),
+            torch.optim.Adam(
+                params=self.discriminator.parameters(), lr=self.lr, betas=self.betas
+            ),
+        ]
 
         return optimizers
 
     def on_train_epoch_end(self) -> None:
-        torch.save(obj=self.generator.state_dict(), f='./generator_retrained.ckpt')
+        torch.save(obj=self.generator.state_dict(), f="./generator_retrained.ckpt")
 
-    def on_test_batch_end(self, outputs, batch, batch_idx: int, dataloader_idx: int) -> None:
+    def on_test_batch_end(
+        self, outputs, batch, batch_idx: int, dataloader_idx: int
+    ) -> None:
         try:
-            self.log_dict(self.metrics(outputs['enhanced'], outputs['reference']))
+            self.log_dict(self.metrics(outputs["enhanced"], outputs["reference"]))
         except ValueError:
-            print('ValueError')
+            print("ValueError")
