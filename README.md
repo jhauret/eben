@@ -54,7 +54,7 @@ Our model achieves the following performance on [Bandwidth Extension](https://pa
 | [Hifi-GAN v3](https://arxiv.org/pdf/2010.05646.pdf)                      | 1.32 (0.16)        | -25.1 (11.4)        | 0.78 (0.04)          | 40 (23)          | 36 (18)          | 1.5 M          | 70.7 M          |
 | [Seanet](https://arxiv.org/pdf/2009.02095.pdf)                 | 1.92 (0.48)        | 11.1 (3.0)          | **0.89 (0.04)** | **73 (13)** | **78 (12)** | 8.3 M          | 56.6  M         |
 | [Streaming-Seanet](https://arxiv.org/pdf/2010.10677.pdf)                        | 2.01 (0.46)        | 11.2 (3.6)          | **0.89 (0.04)** | 66 (20)          | 61 (14)          | **0.7 M** | 56.6  M         |
-| EBEN (ours)                                          | 2.08 (0.45)        | 10.9 (3.3)          | **0.89 (0.04)** | **73 (14)** | **76 (14)** | 1.9 M          | **26.5 M** |
+| [EBEN (ours)](https://arxiv.org/abs/2303.10008)               | 2.08 (0.45)        | 10.9 (3.3)          | **0.89 (0.04)** | **73 (14)** | **76 (14)** | 1.9 M          | **26.5 M** |
 
 In the above Table: format is median (interquartile range). Significantly best values (acceptance=0.05) are in **bold**.
 
@@ -64,9 +64,21 @@ In the above Table: format is median (interquartile range). Significantly best v
 @inproceedings{hauret2023eben,
   title={EBEN: Extreme bandwidth extension network applied to speech signals captured with noise-resilient body-conduction microphones},
   author={Hauret, Julien and Joubaud, Thomas and Zimpfer, V{\'e}ronique and Bavu, {\'E}ric},
-  booktitle={ICASSP 2023-2023 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  booktitle={ICASSP 2023 - 2023 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)}, 
   pages={1--5},
   year={2023},
   organization={IEEE}
+  doi={10.1109/ICASSP49357.2023.10096301}}
+
+}
+```
+
+```
+@ARTICLE{hauret2023configurable_eben,
+  author={Hauret, Julien and Joubaud, Thomas and Zimpfer, Véronique and Bavu, {\'E}ric},
+  journal={IEEE/ACM Transactions on Audio, Speech, and Language Processing}, 
+  title={Configurable EBEN: Extreme Bandwidth Extension Network to Enhance Body-conducted Speech Capture}, 
+  pages={1-14},
+  doi={10.1109/TASLP.2023.3313433}}
 }
 ```
