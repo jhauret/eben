@@ -61,6 +61,18 @@ In the above Table: format is median (interquartile range). Significantly best v
 ## Cite our work
 
 ```
+@ARTICLE{hauret2023configurable_eben_IEEE_TASLP,
+  author={Hauret, Julien and Joubaud, Thomas and Zimpfer, V{\'e}ronique and Bavu, {\'E}ric},
+  journal={IEEE/ACM Transactions on Audio, Speech, and Language Processing}, 
+  title={Configurable EBEN: Extreme Bandwidth Extension Network to Enhance Body-Conducted Speech Capture}, 
+  year={2023},
+  volume={31},
+  number={},
+  pages={3499-3512},
+  doi={10.1109/TASLP.2023.3313433}}
+```
+
+```
 @inproceedings{hauret2023eben,
   title={EBEN: Extreme bandwidth extension network applied to speech signals captured with noise-resilient body-conduction microphones},
   author={Hauret, Julien and Joubaud, Thomas and Zimpfer, V{\'e}ronique and Bavu, {\'E}ric},
@@ -73,12 +85,4 @@ In the above Table: format is median (interquartile range). Significantly best v
 }
 ```
 
-```
-@ARTICLE{hauret2023configurable_eben,
-  author={Hauret, Julien and Joubaud, Thomas and Zimpfer, Véronique and Bavu, {\'E}ric},
-  journal={IEEE/ACM Transactions on Audio, Speech, and Language Processing}, 
-  title={Configurable EBEN: Extreme Bandwidth Extension Network to Enhance Body-conducted Speech Capture}, 
-  pages={1-14},
-  doi={10.1109/TASLP.2023.3313433}}
-}
-```
+
