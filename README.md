@@ -12,6 +12,8 @@
 + Visit the [project page](https://jhauret.github.io/eben/) to listen to audios and visualize some spectrograms.
 + Quick start on the project thanks to the [Colab demo](https://colab.research.google.com/github/jhauret/eben/blob/main/demo.ipynb).
 
+_Note:_ A newer and more performant implementation of EBEN is available in the [Vibravox repo](https://github.com/jhauret/vibravox).
+
 ## Requirements
 
 ```setup
