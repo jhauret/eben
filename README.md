@@ -17,6 +17,8 @@ _Note:_ A newer and more performant implementation of EBEN is available in the [
 ## Requirements
 
 ```setup
+# with Python 3.8.0
+pip install pip==24.0
 pip install -r requirements.txt
 ```
 
