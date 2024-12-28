@@ -60,7 +60,7 @@ Our model achieves the following performance on [Bandwidth Extension](https://pa
 | [Streaming-Seanet](https://arxiv.org/pdf/2010.10677.pdf)                        | 2.01 (0.46)        | 11.2 (3.6)          | **0.89 (0.04)** | 66 (20)          | 61 (14)          | **0.7 M** | 56.6  M         |
 | [EBEN (ours)](https://arxiv.org/abs/2303.10008)               | 2.08 (0.45)        | 10.9 (3.3)          | **0.89 (0.04)** | **73 (14)** | **76 (14)** | 1.9 M          | **26.5 M** |
 
-In the above Table: format is median (interquartile range). Significantly best values (acceptance=0.05) are in **bold**.
+In the above Table: format is median (interquartile range). Significantly best values (acceptance=0.05) are in **bold**. (Note that in the public repo, we only implemented the mean reduction of the metrics)
 
 ## Cite our work
 
