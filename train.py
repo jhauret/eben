@@ -22,9 +22,9 @@ def train():
 
     # Instantiate EBEN
     generator: torch.nn.Module = GeneratorEBEN(
-        m=4, # decimation factor of PQMF
+        m=4, # total number of bands, (= decimation factor of PQMF)
         n=32,  # PQMF kernel size
-        p=1   # number of informative bands
+        p=1   # number of informative bands fed to generator
     )  
 
     discriminator: torch.nn.Module = DiscriminatorEBENMultiScales(
